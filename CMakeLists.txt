@@ -4,10 +4,16 @@ project(ZGE2d)
 
 set(CMAKE_CXX_STANDARD 14)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
+
+message("SDL2_Found 1: " ${SDL2_FOUND})
+message("  SDL2 include dirs: ${SDL2_INCLUDE_DIR}")
+message("  SDL2 libs: ${SDL2_LIBRARY}")
+
 add_subdirectory(ZGE2d)
 add_subdirectory(zgeDemoApp)
 
-#add_library(ZGE2d SHARED ZGE2d/src/library.cpp ZGE2d/include/ZGE2d/library.h)
+message("CMake Module Path 0: " ${CMAKE_MODULE_PATH})
 
 message("Boost_Found 2: " ${Boost_FOUND})
 message("  Boost include dirs: ${Boost_INCLUDE_DIRS}")
@@ -24,6 +30,8 @@ message("Include dirs3: " ${libDir_inc_dirs})
 message("DemoApp: " ${demoApp_inc_dirs})
 message("ZGE2dLib: " ${zge2dLib_inc_dirs})
 
+
+#add_library(ZGE2d SHARED ZGE2d/src/library.cpp ZGE2d/include/ZGE2d/library.h)
 
 #add_executable(DemoApp zgeDemoApp/src/main.cpp)
 #target_include_directories(DemoApp ZGE2d/include/ZGE2d)

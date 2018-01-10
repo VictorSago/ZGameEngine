@@ -8,7 +8,9 @@
 
 ### Output Files ###
 _build/
+build/
 cmake-build-debug/
+cmake-build-release/
 bin/
 out/
 obj/

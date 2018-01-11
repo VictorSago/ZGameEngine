@@ -6,18 +6,18 @@ set(CMAKE_CXX_STANDARD 14)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
 
-message("SDL2_Found 1: " ${SDL2_FOUND})
-message("  SDL2 include dirs: ${SDL2_INCLUDE_DIR}")
-message("  SDL2 libs: ${SDL2_LIBRARY}")
+#message("SDL2_Found 1: " ${SDL2_FOUND})
+#message("  include dirs: ${SDL2_INCLUDE_DIR}")
+#message("  libs: ${SDL2_LIBRARY}")
 
 add_subdirectory(ZGE2d)
 add_subdirectory(zgeDemoApp)
 
-message("CMake Module Path 0: " ${CMAKE_MODULE_PATH})
+#message("CMake Module Path 0: " ${CMAKE_MODULE_PATH})
 
-message("Boost_Found 2: " ${Boost_FOUND})
-message("  Boost include dirs: ${Boost_INCLUDE_DIRS}")
-message("  Boost libs: ${Boost_LIBRARIES}")
+#message("Boost_Found 2: " ${Boost_FOUND})
+#message("  include dirs: ${Boost_INCLUDE_DIR}")
+#message("  libs: ${Boost_LIBRARIES}")
 
 get_property(inc_dirs1 DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
 get_property(appDir_inc_dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/zgeDemoApp PROPERTY INCLUDE_DIRECTORIES)

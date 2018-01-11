@@ -77,4 +77,7 @@ work for me and hopefully they'll work for you too. If you fix any
 issues with them then I'd appreciate a pull request so other
 users can get your fixes too, but that's up to you :-).
 
+### Link
+Link to this repo: [https://github.com/tcbrindle/sdl2-cmake-scripts](https://github.com/tcbrindle/sdl2-cmake-scripts)
+
 

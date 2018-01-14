@@ -16,6 +16,10 @@ class GameEngine {
         SDL_Window* window;
         SDL_Renderer* renderer;
     protected:
+        /** \brief Field for storing a pointer to KeyStates
+         *  These key states are read outside the event loop
+         *  and are then used to control sprites
+         */
         const Uint8 *keyState;
     protected:
         static void initSDL();

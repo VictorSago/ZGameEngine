@@ -71,4 +71,8 @@ void Session::stop() {
     quit = true;
 }
 
+void Session::doQuit() {
+    stop();
+}
+
 }

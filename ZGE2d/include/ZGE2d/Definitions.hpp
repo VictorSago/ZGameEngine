@@ -15,6 +15,9 @@ namespace zge2d {
     const int minFPS            = 8;
     const int maxFPS            = 128;
 
+    const int defaultWinWidth 	= 800;
+    const int defaultWinHeight 	= 600;
+
     const SDL_Color defaultCompBackground 	= {64, 128, 255, SDL_ALPHA_OPAQUE};
     const SDL_Color defaultWinBackground 	= {15, 15, 15, SDL_ALPHA_OPAQUE};
     const SDL_Color defaultTextForeground 	= {0, 0, 0, SDL_ALPHA_OPAQUE};

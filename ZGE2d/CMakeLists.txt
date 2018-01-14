@@ -35,10 +35,11 @@ include_directories(${ZGE2D_INC_DIR})
 #message("CMake Current List Dir: " ${CMAKE_CURRENT_LIST_DIR})
 #message("ZGE2d source (ZGE2D_SRC_DIR): " ${ZGE2D_SRC_DIR})
 
-add_library(ZGE2dLib SHARED "" src/Animation.cpp include/ZGE2d/Animation.hpp IEventHandler.cpp IEventHandler.hpp)
+add_library(ZGE2dLib SHARED "" include/ZGE2d/IEventHandler.hpp src/GameWindow.cpp include/ZGE2d/GameWindow.hpp src/SpriteGroup.cpp include/ZGE2d/SpriteGroup.hpp src/SpriteContainer.cpp include/ZGE2d/SpriteContainer.hpp)
 
 target_sources(ZGE2dLib
         PRIVATE
+            ${ZGE2D_INC_DIR}/IEventHandler.hpp
             ${ZGE2D_SRC_DIR}/GameEngine.cpp
             ${ZGE2D_SRC_DIR}/Session.cpp
             ${ZGE2D_SRC_DIR}/Timer.cpp

@@ -6,14 +6,17 @@
 #define ZGE2D_SESSION_HPP
 
 #include <vector>
+
 #include "VisComp.hpp"
 #include "Timer.hpp"
+#include "IEventHandler.hpp"
 
 namespace zge2d {
 
-class Session {
+class Session : public IEventHandler {
     private:
         std::vector<VisComp* > components;
+
         bool quit = false;
 
         Timer timer;
@@ -25,6 +28,8 @@ class Session {
 
         void run();
         void stop();
+
+        void doQuit() override;
 };
 
 }

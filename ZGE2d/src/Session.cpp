@@ -4,27 +4,26 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
-#include <GameEngine.hpp>
 
+#include "GameEngine.hpp"
 #include "Session.hpp"
 
 namespace zge2d {
-
-Session::Session() {
-}
 
 Session::~Session() {
     components.clear();
     std::cout << "Session destructor..." << std::endl;
 }
 
-void Session::addComponent(VisComp* comp) {
+void Session::addElement(VisComp *comp) {
     components.push_back(comp);
 }
 
 void Session::run() {
+    GameEngine* engine = GameEngine::getInstance();
+    SDL_Event eve{};
+    timer.start();
     while (!quit) {
-        SDL_Event eve{};
         while (SDL_PollEvent(&eve)) {
             switch (eve.type) {
                 case SDL_QUIT:
@@ -55,12 +54,15 @@ void Session::run() {
                     break;
             } // Switch
         } // while event
-
-        SDL_RenderClear(gameEngine.getRenderer());
+        timer.capFPS();
         for (VisComp* c : components) {
-            c->drawComponent();
+            c->update();
         }
-        SDL_RenderPresent(gameEngine.getRenderer());
+        SDL_RenderClear(engine->getRenderer());
+        for (VisComp* c : components) {
+            c->draw();
+        }
+        SDL_RenderPresent(engine->getRenderer());
 
     } // while !quit
 }

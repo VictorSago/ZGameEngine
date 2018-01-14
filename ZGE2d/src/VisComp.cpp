@@ -3,6 +3,9 @@
 //
 
 #include <string>
+#ifdef DEBUG_BUILD
+    #include <sstream>
+#endif
 #include "VisComp.hpp"
 
 namespace zge2d {
@@ -16,7 +19,7 @@ VisComp::VisComp(int x, int y, int w, int h, bool visibility) : boundingRect{x, 
 VisComp::VisComp(const SDL_Rect &r, bool visibility) : boundingRect(r), visible(visibility) {
 }
 
-#ifdef DEBUG
+#ifdef DEBUG_BUILD
 std::string VisComp::toString() {
     std::string sep (", ");
     std::stringstream ss;
@@ -25,6 +28,5 @@ std::string VisComp::toString() {
     return ss.str();
 }
 #endif
-
 
 }

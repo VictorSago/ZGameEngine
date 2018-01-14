@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "VisComp.hpp"
+#include "Timer.hpp"
 
 namespace zge2d {
 
@@ -14,11 +15,13 @@ class Session {
     private:
         std::vector<VisComp* > components;
         bool quit = false;
+
+        Timer timer;
     public:
-        Session();
+        Session() = default;
         virtual ~Session();
 
-        void addComponent(VisComp* comp);
+        void addElement(VisComp *comp);
 
         void run();
         void stop();

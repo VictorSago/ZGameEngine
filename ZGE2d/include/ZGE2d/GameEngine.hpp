@@ -10,20 +10,29 @@
 namespace zge2d {
 
 class GameEngine {
+    protected:
+        static GameEngine gameEngine;
     private:
         SDL_Window* window;
         SDL_Renderer* renderer;
     protected:
+        const Uint8 *keyState;
+    protected:
         static void initSDL();
     public:
-        GameEngine();
         virtual ~GameEngine();
 
+        static GameEngine* getInstance() {return &gameEngine;}
         SDL_Renderer* getRenderer() const;
-        SDL_Window* getSdlWindow() const;
+        SDL_Window* getWindow() const;
+
+        const Uint8* getKeyState() { return keyState; }
+
+    protected:
+        GameEngine();
 };
 
-extern GameEngine gameEngine;
+//extern GameEngine gameEngine;
 
 }
 

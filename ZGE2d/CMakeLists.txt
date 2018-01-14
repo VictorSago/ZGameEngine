@@ -14,14 +14,19 @@ message("  libs: ${Boost_LIBRARIES}")
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
-#message("SDL2_Found 2: " ${SDL2_FOUND})
-#message("  include dirs: ${SDL2_INCLUDE_DIR}")
-#message("  libs: ${SDL2_LIBRARY}")
-#
-#message("SDL2_image_Found 2: " ${SDL2_IMAGE_FOUND})
-#message("  include dirs: ${SDL2_IMAGE_INCLUDE_DIR}")
-#message("  libs: ${SDL2_IMAGE_LIBRARY}")
+message("SDL2_Found 2: " ${SDL2_FOUND})
+message("  include dirs: ${SDL2_INCLUDE_DIR}")
+message("  libs: ${SDL2_LIBRARY}")
+
+message("SDL2_image_Found 2: " ${SDL2_IMAGE_FOUND})
+message("  include dirs: " ${SDL2_IMAGE_INCLUDE_DIR})
+message("  libs: ${SDL2_IMAGE_LIBRARY}")
+
+message("SDL2_ttf_Found 2: ${SDL2_TTF_FOUND}")
+message("  include dirs: ${SDL2_TTF_INCLUDE_DIRS}")
+message("  libs: ${SDL2_TTF_LIBRARIES}")
 
 set(ZGE2D_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
 set(ZGE2D_INC_DIR ${CMAKE_CURRENT_LIST_DIR}/include/${PROJECT_NAME})
@@ -30,22 +35,37 @@ include_directories(${ZGE2D_INC_DIR})
 #message("CMake Current List Dir: " ${CMAKE_CURRENT_LIST_DIR})
 #message("ZGE2d source (ZGE2D_SRC_DIR): " ${ZGE2D_SRC_DIR})
 
-add_library(ZGE2dLib SHARED "")
+add_library(ZGE2dLib SHARED "" src/Animation.cpp include/ZGE2d/Animation.hpp IEventHandler.cpp IEventHandler.hpp)
 
 target_sources(ZGE2dLib
         PRIVATE
             ${ZGE2D_SRC_DIR}/GameEngine.cpp
             ${ZGE2D_SRC_DIR}/Session.cpp
-            ${ZGE2D_SRC_DIR}/VisComp.cpp
+            ${ZGE2D_SRC_DIR}/Timer.cpp
             ${ZGE2D_SRC_DIR}/Texture.cpp
+            ${ZGE2D_SRC_DIR}/VisComp.cpp
             ${ZGE2D_SRC_DIR}/Label.cpp
+            ${ZGE2D_SRC_DIR}/Animation.cpp
+            ${ZGE2D_SRC_DIR}/Sprite.cpp
+            ${ZGE2D_SRC_DIR}/MovingSprite.cpp
+            ${ZGE2D_SRC_DIR}/ControlledSprite.cpp
         PUBLIC
+            ${ZGE2D_INC_DIR}/Definitions.hpp
             ${ZGE2D_INC_DIR}/GameEngine.hpp
             ${ZGE2D_INC_DIR}/Session.hpp
-            ${ZGE2D_INC_DIR}/VisComp.hpp
+            ${ZGE2D_INC_DIR}/Timer.hpp
             ${ZGE2D_INC_DIR}/Texture.hpp
+            ${ZGE2D_INC_DIR}/VisComp.hpp
             ${ZGE2D_INC_DIR}/Label.hpp
+            ${ZGE2D_INC_DIR}/Animation.hpp
+            ${ZGE2D_INC_DIR}/Sprite.hpp
+            ${ZGE2D_INC_DIR}/MovingSprite.hpp
+            ${ZGE2D_INC_DIR}/ControlledSprite.hpp
         )
+
+target_link_libraries(ZGE2dLib ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARIES})
+
+target_compile_definitions(ZGE2dLib PUBLIC DEBUG_BUILD=1)
 
 if (Boost_FOUND)
     # Add tests

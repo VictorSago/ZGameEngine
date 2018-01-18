@@ -7,6 +7,8 @@
     #include <sstream>
 #endif
 
+#include <SDL2/SDL.h>
+
 #include "GameEngine.hpp"
 #include "Sprite.hpp"
 #include "Definitions.hpp"
@@ -14,8 +16,10 @@
 namespace zge2d {
 
 
-Sprite::Sprite(int x, int y, int w, int h, std::string imagePath, bool visibility) : VisComp(x, y, w, h, visibility) {
-    Texture* pTexture = Texture::loadTexture(GameEngine::getInstance()->getRenderer(), std::move(imagePath));
+Sprite::Sprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, const std::string& imagePath, bool visibility)
+        : VisEntity(x, y, w, h, visibility) {
+    std::cout << "Sprite constructor 7." << std::endl;
+    Texture* pTexture = Texture::loadTexture(renderTarget, imagePath);
     texture = std::shared_ptr<Texture>(pTexture);
     cropRect.x = cropRect.y = 0;
     cropRect.w = w;
@@ -23,8 +27,10 @@ Sprite::Sprite(int x, int y, int w, int h, std::string imagePath, bool visibilit
     collisionHandler = false;
 }
 
-Sprite::Sprite(const SDL_Rect &r, std::string imagePath, bool visibility) : VisComp(r, visibility) {
-    Texture* pTexture = Texture::loadTexture(GameEngine::getInstance()->getRenderer(), std::move(imagePath));
+Sprite::Sprite(SDL_Renderer* renderTarget, const SDL_Rect& r, const std::string& imagePath, bool visibility)
+        : VisEntity(r, visibility) {
+    std::cout << "Sprite constructor 4." << std::endl;
+    Texture* pTexture = Texture::loadTexture(renderTarget, imagePath);
     texture = std::shared_ptr<Texture>(pTexture);
     cropRect.x = cropRect.y = 0;
     cropRect.w = r.w;
@@ -64,13 +70,13 @@ void Sprite::update() {
     animate();
 }
 
-void Sprite::draw() const {
+void Sprite::draw(SDL_Renderer* renderTarget) const {
     if (visible) {
-        texture.get()->draw(GameEngine::getInstance()->getRenderer(), &cropRect, &boundingRect);
+        texture.get()->draw(renderTarget, &cropRect, &boundingRect);
     }
 }
 
-void Sprite::collision(Sprite *s) {
+void Sprite::collision(Sprite* s) {
     if(testCollision(s)) {
         if(collisionHandler) {
             collisions.insert(s);
@@ -81,11 +87,11 @@ void Sprite::collision(Sprite *s) {
     }
 }
 
-void Sprite::addCollider(Sprite *s) {
+void Sprite::addCollider(Sprite* s) {
     collisions.insert(s);
 }
 
-bool Sprite::operator==(const Sprite &other) const {
+bool Sprite::operator==(const Sprite& other) const {
 //    return texture == other.texture && boundingRect == other.boundingRect;
     return texture == other.texture &&
             (boundingRect.x == other.boundingRect.x && boundingRect.y == other.boundingRect.y
@@ -96,17 +102,18 @@ void Sprite::animate() {
     cropRect = *(animations[currentAnimation]->animate());
 }
 
-bool Sprite::collisionRect(Sprite *s) {
+bool Sprite::collisionRect(Sprite* s) {
     return false;
 }
 
-bool Sprite::collisionCirc(Sprite *s) {
+bool Sprite::collisionCirc(Sprite* s) {
     return false;
 }
 
-bool Sprite::testCollision(Sprite *s) {
+bool Sprite::testCollision(Sprite* s) {
     return false;
 }
+
 
 #ifdef DEBUG_BUILD
 std::string Sprite::toString() {

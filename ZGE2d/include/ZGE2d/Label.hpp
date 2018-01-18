@@ -7,12 +7,13 @@
 
 #include <string>
 #include <memory>
-#include "VisComp.hpp"
+
 #include "Texture.hpp"
+#include "Widget.hpp"
 
 namespace zge2d {
 
-class Label : public VisComp {
+class Label : public Widget {
     private:
         std::string labelText;
 
@@ -23,13 +24,13 @@ class Label : public VisComp {
         std::shared_ptr<Texture> texture;
 
     protected:
-        Label(int x, int y, int w, int h, std::string text, std::string font, SDL_Color fgColor, int size = 16, bool visibility = true);
-        Label(const SDL_Rect& r, std::string text, std::string font, SDL_Color fgColor, int size = 16, bool visibility = true);
+        Label(SDL_Renderer* renderTarget, int x, int y, int w, int h, std::string text, std::string font, SDL_Color fgColor, int size = 16, bool visibility = true);
+        Label(SDL_Renderer* renderTarget, const SDL_Rect& r, std::string text, std::string font, SDL_Color fgColor, int size = 16, bool visibility = true);
 
     public:
-        static Label* getInstance(int x, int y, int w, int h, std::string text, std::string font, SDL_Color fgColor, int size = 16);
-        static Label* getInstance(const SDL_Rect& r, std::string text, std::string font, SDL_Color fgColor, int size = 16);
-        static Label* getInstance(int x, int y, std::string text, std::string font, SDL_Color fgColor, int size = 16);
+        static Label* getInstance(SDL_Renderer* renderTarget, int x, int y, int w, int h, std::string text, std::string font, SDL_Color fgColor, int size = 16);
+        static Label* getInstance(SDL_Renderer* renderTarget, const SDL_Rect& r, std::string text, std::string font, SDL_Color fgColor, int size = 16);
+        static Label* getInstance(SDL_Renderer* renderTarget, int x, int y, std::string text, std::string font, SDL_Color fgColor, int size = 16);
 
     public:
         virtual ~Label() = default;
@@ -43,9 +44,9 @@ class Label : public VisComp {
         const std::string& getFontPath() const;
         void setNewFont(const std::string& path);
 
-        void reloadTexture();
+        void reloadTexture(SDL_Renderer* renderTarget);
         void update() override;
-        void draw() const override;
+        void draw(SDL_Renderer* renderTarget) const override;
 };
 
 }

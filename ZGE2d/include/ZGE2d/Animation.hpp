@@ -28,8 +28,8 @@ class Animation {
 
     public:
         Animation();
-        Animation(std::string aname, Frames& c);
-        Animation(std::string aname, Frames& c, unsigned int fps);
+        Animation(const std::string& aname, Frames& c);
+        Animation(const std::string& aname, Frames& c, unsigned int fps);
         virtual ~Animation();
 
         std::string getName() { return name; }

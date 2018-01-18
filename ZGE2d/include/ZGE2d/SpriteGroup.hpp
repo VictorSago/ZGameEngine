@@ -16,37 +16,39 @@ typedef std::vector<Sprite* > SpriteVector;
 class SpriteGroup {
     protected:
         std::string name;
-        SpriteVector sprites;
+        SpriteVector* sprites;
         unsigned long size = 0;
 
     protected:
         SpriteGroup() {}
 
     public:
-        SpriteGroup(std::string gname);
+        explicit SpriteGroup(const std::string& gname);
         virtual ~SpriteGroup();
 
 //        SpriteGroup copyGroup();
 
-        std::string getName() { return name; }
+        std::string getName() const { return name; }
 
-        SpriteVector& getSprites() { return sprites; }
+        SpriteVector* getSprites() { return sprites; }
 
-        virtual void add(Sprite *sprite);
-        virtual void remove(Sprite *spr);
-        bool contains(Sprite *spr);
+        virtual void add(Sprite* sprite);
+        virtual void remove(Sprite* sprite);
+        bool contains(Sprite* sprite) const;
         virtual void emptyGroup();
 
-        long getSize() { return size; }
+        long getSize() const { return size; }
 
-        virtual bool operator==(const SpriteGroup& other) const;
+//        virtual bool operator==(const SpriteGroup& other) const;
 
         void setVisibleAll(bool v);
         void setVisible(int idx, bool v);
 
 //        void update(float deltaTime, const Uint8 *keyState);
         void update();
-        void draw();
+        void draw(SDL_Renderer* renderTarget);
+
+        virtual bool delegateEvent(SDL_Event& event);
 
         bool testIntersectInGroup();
 

@@ -35,38 +35,46 @@ include_directories(${ZGE2D_INC_DIR})
 #message("CMake Current List Dir: " ${CMAKE_CURRENT_LIST_DIR})
 #message("ZGE2d source (ZGE2D_SRC_DIR): " ${ZGE2D_SRC_DIR})
 
-add_library(ZGE2dLib SHARED "" include/ZGE2d/IEventHandler.hpp src/GameWindow.cpp include/ZGE2d/GameWindow.hpp src/SpriteGroup.cpp include/ZGE2d/SpriteGroup.hpp src/SpriteContainer.cpp include/ZGE2d/SpriteContainer.hpp)
+add_library(ZGE2dLib SHARED "")
 
 target_sources(ZGE2dLib
         PRIVATE
             ${ZGE2D_INC_DIR}/IEventHandler.hpp
             ${ZGE2D_SRC_DIR}/GameEngine.cpp
             ${ZGE2D_SRC_DIR}/Session.cpp
+            ${ZGE2D_SRC_DIR}/GameWindow.cpp
             ${ZGE2D_SRC_DIR}/Timer.cpp
             ${ZGE2D_SRC_DIR}/Texture.cpp
-            ${ZGE2D_SRC_DIR}/VisComp.cpp
+            ${ZGE2D_SRC_DIR}/VisEntity.cpp
             ${ZGE2D_SRC_DIR}/Label.cpp
             ${ZGE2D_SRC_DIR}/Animation.cpp
             ${ZGE2D_SRC_DIR}/Sprite.cpp
             ${ZGE2D_SRC_DIR}/MovingSprite.cpp
             ${ZGE2D_SRC_DIR}/ControlledSprite.cpp
+            ${ZGE2D_SRC_DIR}/SpriteGroup.cpp
+            ${ZGE2D_SRC_DIR}/SpriteContainer.cpp
+            ${ZGE2D_SRC_DIR}/WidgetContainer.cpp
         PUBLIC
             ${ZGE2D_INC_DIR}/Definitions.hpp
             ${ZGE2D_INC_DIR}/GameEngine.hpp
             ${ZGE2D_INC_DIR}/Session.hpp
+            ${ZGE2D_INC_DIR}/GameWindow.hpp
             ${ZGE2D_INC_DIR}/Timer.hpp
             ${ZGE2D_INC_DIR}/Texture.hpp
-            ${ZGE2D_INC_DIR}/VisComp.hpp
+            ${ZGE2D_INC_DIR}/VisEntity.hpp
             ${ZGE2D_INC_DIR}/Label.hpp
             ${ZGE2D_INC_DIR}/Animation.hpp
             ${ZGE2D_INC_DIR}/Sprite.hpp
             ${ZGE2D_INC_DIR}/MovingSprite.hpp
             ${ZGE2D_INC_DIR}/ControlledSprite.hpp
+            ${ZGE2D_INC_DIR}/SpriteGroup.hpp
+            ${ZGE2D_INC_DIR}/SpriteContainer.hpp
+            ${ZGE2D_INC_DIR}/WidgetContainer.hpp
         )
 
 target_link_libraries(ZGE2dLib ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARIES})
 
-target_compile_definitions(ZGE2dLib PUBLIC DEBUG_BUILD=1)
+#target_compile_definitions(ZGE2dLib PUBLIC DEBUG_BUILD=1)
 
 if (Boost_FOUND)
     # Add tests

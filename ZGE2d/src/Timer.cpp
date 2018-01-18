@@ -9,7 +9,8 @@
 
 namespace zge2d {
 
-
+Timer::Timer() : Timer(defaultFPS) {}
+/*
 Timer::Timer() {
     std::cout << "Timer constructor 0." << std::endl;
     fps = defaultFPS;
@@ -21,6 +22,7 @@ Timer::Timer() {
     started = false;
     paused = false;
 }
+*/
 
 Timer::Timer(unsigned int framesPerSec) {
     std::cout << "Timer constructor 1." << std::endl;

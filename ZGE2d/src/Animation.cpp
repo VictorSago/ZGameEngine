@@ -22,10 +22,10 @@ Animation::Animation() {
     animationTimer.setFPS(defaultFPS / 6);
 }
 
-Animation::Animation(std::string aname, Frames &c) : Animation(std::move(aname), c, defaultFPS / 6) {}
+Animation::Animation(const std::string& aname, Frames &c) : Animation(aname, c, defaultFPS / 6) {}
 
-Animation::Animation(std::string aname, Frames &c, unsigned int fps) : name(std::move(aname)), clips(c) {
-    std::cout << "Animation constructor 2." << std::endl;
+Animation::Animation(const std::string& aname, Frames &c, unsigned int fps) : name(aname), clips(c) {
+    std::cout << "Animation constructor 3: " << name << "." << std::endl;
     currentFrame = 0;
     maxFrames = c.size();
     frameInc = 1;

@@ -30,7 +30,7 @@ class MovingSprite : public Sprite {
         SDL_RendererFlip flip = SDL_FLIP_NONE;
 
     public:
-        MovingSprite(int x, int y, int w, int h, std::string imagePath, bool visibility);
+        MovingSprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, const std::string& imagePath, bool visibility);
         virtual ~MovingSprite();
 
         float getMoveSpeed() { return moveSpeed; }
@@ -51,7 +51,7 @@ class MovingSprite : public Sprite {
 //        virtual void update(float deltaTime, bool active);
 //        virtual void update(float deltaTime);
         void update() override;
-        void draw() const override;
+        void draw(SDL_Renderer* renderTarget) const override;
 
 //        bool intersectsWith(BasicSprite& s);
 //        bool intersectsWithCirc(BasicSprite& s);

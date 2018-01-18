@@ -19,11 +19,11 @@ SpriteContainer::~SpriteContainer() {
     groups.clear();
 }
 
-bool SpriteContainer::add(SpriteGroup *group) {
-    return add(nextZ + 1, group);
+bool SpriteContainer::addGroup(SpriteGroup *group) {
+    return addGroup(group, nextZ + 1);
 }
 
-bool SpriteContainer::add(unsigned int z, SpriteGroup *group) {
+bool SpriteContainer::addGroup(SpriteGroup *group, unsigned int z) {
     std::string groupName = group->getName();
     if(!contains(groupName)) {
         GroupKey key(z, groupName);
@@ -33,7 +33,7 @@ bool SpriteContainer::add(unsigned int z, SpriteGroup *group) {
     return false;
 }
 
-bool SpriteContainer::contains(std::string groupName) {
+bool SpriteContainer::contains(const std::string& groupName) const {
     for(const auto& it : groups) {
         if(it.first.second == groupName) {
             return true;
@@ -42,13 +42,13 @@ bool SpriteContainer::contains(std::string groupName) {
     return false;
 }
 
-bool SpriteContainer::remove(SpriteGroup *group) {
+bool SpriteContainer::remove(SpriteGroup* group) {
     std::string groupName = group->getName();
     return remove(groupName);
 }
 
-bool SpriteContainer::remove(std::string groupName) {
-    for(GroupMap::iterator it = groups.begin(); it != groups.end(); ++it) {
+bool SpriteContainer::remove(const std::string& groupName) {
+    for(auto it = groups.begin(); it != groups.end(); ++it) {
         if(it->first.second == groupName) {
             groups.erase(it);
             return true;
@@ -64,32 +64,41 @@ void SpriteContainer::update() {
     }
 }
 
-void SpriteContainer::draw() {
+void SpriteContainer::draw(SDL_Renderer* renderTarget) {
     for(const auto& it : groups) {
-        it.second->draw();
+        it.second->draw(renderTarget);
     }
 }
 
 bool SpriteContainer::testCollisions() {
     bool ret = false;
-    SpriteVector collvec;
+    SpriteVector collisionVec;
     for (auto g1 = groups.rbegin(); g1 != groups.rend(); ++g1) {
 //        std::cout << "Group: " << g1->first.first << ", \'" << g1->second->getName() << "\'\n";
-        for (auto &s1 : g1->second->getSprites()) {
+        for (auto& s1 : *g1->second->getSprites()) {
 //            Sprite* sprite0_ptr = s1;
 //            std::cout << "Sprite: " << sprite0_ptr->toString() << "\n";
-            collvec.push_back(s1);
+            collisionVec.push_back(s1);
         }
     }
-    for (unsigned int i = 0; i < collvec.size(); i++) {
-        for (unsigned int j = i + 1; j < collvec.size(); j++) {
-            collvec[i]->collision(collvec[j]);
+    for (unsigned int i = 0; i < collisionVec.size(); i++) {
+        for (unsigned int j = i + 1; j < collisionVec.size(); j++) {
+            collisionVec[i]->collision(collisionVec[j]);
 //            Sprite *sprite1 = collvec[i];
 //            Sprite *sprite2 = collvec[j];
 //            sprite1->collision(sprite2);
         }
     }
     return ret;
+}
+
+inline
+bool SpriteContainer::delegateEvent(SDL_Event& event) {
+    bool handled = false;
+    for (auto sg : groups) {
+        handled = sg.second->delegateEvent(event);
+    }
+    return handled;
 }
 
 }

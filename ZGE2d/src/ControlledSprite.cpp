@@ -8,8 +8,8 @@
 
 namespace zge2d {
 
-ControlledSprite::ControlledSprite(int x, int y, int w, int h, std::string filePath, bool visibility)
-                    : MovingSprite(x, y, w, h, filePath, visibility) { }
+ControlledSprite::ControlledSprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, std::string filePath, bool visibility)
+                    : MovingSprite(renderTarget, x, y, w, h, filePath, visibility) { }
 
 ControlledSprite::~ControlledSprite() {
     std::cout << "ControlledSprite destructor." << std::endl;
@@ -24,7 +24,8 @@ void ControlledSprite::setControls(SDL_Scancode* keys, int num) {
 }
 
 void ControlledSprite::update() {
-    handleControls(GameEngine::getInstance()->getKeyState());
+    const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
+    handleControls(keyStates);
     if(collisionHandler) {
         handleCollisions();
     }
@@ -55,6 +56,7 @@ void ControlledSprite::update() {
 //    update(deltaTime, true);
 //}
 
+#ifdef DEBUG_BUILD
 std::string ControlledSprite::toString() {
     std::stringstream ss;
     ss << MovingSprite::toString();
@@ -64,5 +66,6 @@ std::string ControlledSprite::toString() {
     }
     return ss.str();
 }
+#endif
 
 } // namespace

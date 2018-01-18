@@ -10,13 +10,13 @@
 #include <map>
 #include <set>
 
-#include "VisComp.hpp"
+#include "VisEntity.hpp"
 #include "Texture.hpp"
 #include "Animation.hpp"
 
 namespace zge2d {
 
-class Sprite : public VisComp {
+class Sprite : public VisEntity {
     protected:
         std::shared_ptr<Texture> texture;
         SDL_Rect cropRect;
@@ -28,8 +28,8 @@ class Sprite : public VisComp {
         std::set<Sprite*> collisions;
 
     public:
-        Sprite(int x, int y, int w, int h, std::string imagePath, bool visibility = true);
-        explicit Sprite(const SDL_Rect &r, std::string imagePath, bool visibility = true);
+        Sprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, const std::string& imagePath, bool visibility = true);
+        Sprite(SDL_Renderer* renderTarget, const SDL_Rect& r, const std::string& imagePath, bool visibility = true);
         virtual ~Sprite();
 
         const SDL_Rect& getCropRect() const { return cropRect; }
@@ -41,8 +41,9 @@ class Sprite : public VisComp {
         bool isCollisionHandler() { return collisionHandler; }
 
         void update() override;
-        void draw() const override;
+        void draw(SDL_Renderer* renderTarget) const override;
 
+    public:
         virtual void handleCollisions() {}
 
         virtual void collision(Sprite* s);

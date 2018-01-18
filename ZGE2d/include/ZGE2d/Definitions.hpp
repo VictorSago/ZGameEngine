@@ -9,14 +9,23 @@
 
 #define DEFAULT_MOVESPEED 4
 
+#define RENDER_FLAGS SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+
+#define ERROR_SDL_INIT 1
+#define ERROR_IMG_INIT 2
+#define ERROR_WIN_INIT 4
+#define ERROR_TTF_INIT 8
+#define ERROR_MIX_INIT 16
+#define ERROR_BG_IMAGE 32
+
 namespace zge2d {
 
     const int defaultFPS 		= 60;
     const int minFPS            = 8;
     const int maxFPS            = 128;
 
-    const int defaultWinWidth 	= 800;
-    const int defaultWinHeight 	= 600;
+    const int defaultWinWidth 	= 1024;
+    const int defaultWinHeight 	= 768;
 
     const SDL_Color defaultCompBackground 	= {64, 128, 255, SDL_ALPHA_OPAQUE};
     const SDL_Color defaultWinBackground 	= {15, 15, 15, SDL_ALPHA_OPAQUE};

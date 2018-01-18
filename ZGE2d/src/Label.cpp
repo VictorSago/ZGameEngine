@@ -2,36 +2,36 @@
 // Created by Victor Sago on 2018-01-11.
 //
 
+#include <iostream>
 #include "GameEngine.hpp"
 #include "Label.hpp"
-
 
 
 namespace zge2d {
 
 
-Label::Label(int x, int y, int w, int h, std::string text, std::string font, SDL_Color fgColor, int size, bool visibility)
-        : VisComp(x, y, w, h, visibility), labelText(std::move(text)), fontPath(std::move(font)), textColor(fgColor), fontSize(size) {
-    Texture* pTexture = Texture::makeFromText(GameEngine::getInstance()->getRenderer(), fontPath, labelText, textColor, fontSize);
+Label::Label(SDL_Renderer* renderTarget, int x, int y, int w, int h, std::string text, std::string font, SDL_Color fgColor, int size, bool visibility)
+        : Widget(x, y, w, h, visibility), labelText(std::move(text)), fontPath(std::move(font)), textColor(fgColor), fontSize(size) {
+    Texture* pTexture = Texture::makeFromText(renderTarget, fontPath, labelText, textColor, fontSize);
     texture = std::shared_ptr<Texture>(pTexture);
 }
 
-Label::Label(const SDL_Rect &r, std::string text, std::string font, SDL_Color fgColor, int size, bool visibility)
-        : VisComp(r, visibility), labelText(std::move(text)), fontPath(std::move(font)), textColor(fgColor), fontSize(size) {
-    Texture* pTexture = Texture::makeFromText(GameEngine::getInstance()->getRenderer(), fontPath, labelText, textColor, fontSize);
+Label::Label(SDL_Renderer* renderTarget, const SDL_Rect &r, std::string text, std::string font, SDL_Color fgColor, int size, bool visibility)
+        : Widget(r, visibility), labelText(std::move(text)), fontPath(std::move(font)), textColor(fgColor), fontSize(size) {
+    Texture* pTexture = Texture::makeFromText(renderTarget, fontPath, labelText, textColor, fontSize);
     texture = std::shared_ptr<Texture>(pTexture);
 }
 
-Label* Label::getInstance(int x, int y, int w, int h, std::string text, std::string font, SDL_Color fgColor, int size) {
-    return new Label(x, y, w, h, std::move(text), std::move(font), fgColor, size);
+Label* Label::getInstance(SDL_Renderer* renderTarget, int x, int y, int w, int h, std::string text, std::string font, SDL_Color fgColor, int size) {
+    return new Label(renderTarget, x, y, w, h, std::move(text), std::move(font), fgColor, size);
 }
 
-Label* Label::getInstance(const SDL_Rect &r, std::string text, std::string font, SDL_Color fgColor, int size) {
-    return new Label(r, std::move(text), std::move(font), fgColor, size);
+Label* Label::getInstance(SDL_Renderer* renderTarget, const SDL_Rect &r, std::string text, std::string font, SDL_Color fgColor, int size) {
+    return new Label(renderTarget, r, std::move(text), std::move(font), fgColor, size);
 }
 
-Label* Label::getInstance(int x, int y, std::string text, std::string font, SDL_Color fgColor, int size) {
-    Label* tLbl = new Label(x, y, 0, 0, std::move(text), std::move(font), fgColor, size);
+Label* Label::getInstance(SDL_Renderer* renderTarget, int x, int y, std::string text, std::string font, SDL_Color fgColor, int size) {
+    Label* tLbl = new Label(renderTarget, x, y, 0, 0, std::move(text), std::move(font), fgColor, size);
     tLbl->setWH(tLbl->texture->getWidth(), tLbl->texture->getHeight());
 //    tLbl->boundingRect.w = tLbl->texture->getWidth();
 //    tLbl->boundingRect.h = tLbl->texture->getHeight();
@@ -70,18 +70,17 @@ void Label::setNewFont(const std::string& path) {
     fontPath = fontPath;
 }
 
-void Label::reloadTexture() {
+void Label::reloadTexture(SDL_Renderer* renderTarget) {
     texture = nullptr;
-    Texture* pTexture = Texture::makeFromText(GameEngine::getInstance()->getRenderer(), fontPath, labelText, textColor, fontSize);
+    Texture* pTexture = Texture::makeFromText(renderTarget, fontPath, labelText, textColor, fontSize);
     texture = std::shared_ptr<Texture>(pTexture);
 }
 
 void Label::update() {
 }
 
-void Label::draw() const {
-//    SDL_Rect dst{boundingRect};
-    texture.get()->draw(GameEngine::getInstance()->getRenderer(), nullptr, &boundingRect);
+void Label::draw(SDL_Renderer* renderTarget) const {
+    texture.get()->draw(renderTarget, nullptr, &boundingRect);
 }
 
 

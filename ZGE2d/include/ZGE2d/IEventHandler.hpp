@@ -22,42 +22,53 @@ class IEventHandler {
          *  It is called from an event loop and delegates
          *  specific events to corresponding methods
          */
-        virtual void handleEvent(SDL_Event& event);
-        virtual void doQuit() {}
-        virtual void onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode) {}
-        virtual void onKeyUp(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode) {}
-        virtual void onMouseDown(Uint8 mbutton, Sint32 x, Sint32 y, Uint8 clicks) {}
-        virtual void onMouseUp(Uint8 mbutton, Sint32 x, Sint32 y, Uint8 clicks) {}
-        virtual void onMouseMove(Sint32 xPos, Sint32 yPos, Sint32 xRel, Sint32 yRel, Uint32 state) {}
+        virtual inline bool handleEvent(SDL_Event &event);
+        virtual inline bool onQuit() { return false; }
+        virtual inline bool onWindowEvent(SDL_Event &event) { return false; }
+        virtual inline bool onKeyDown(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode) { return false; }
+        virtual inline bool onKeyUp(SDL_Keycode sym, Uint16 mod, SDL_Scancode unicode) { return false; }
+        virtual inline bool onMouseDown(Uint8 mbutton, Sint32 x, Sint32 y, Uint8 clicks) { return false; }
+        virtual inline bool onMouseUp(Uint8 mbutton, Sint32 x, Sint32 y, Uint8 clicks) { return false; }
+        virtual inline bool onMouseMove(Sint32 xPos, Sint32 yPos, Sint32 xRel, Sint32 yRel, Uint32 state) { return false; }
+        virtual inline bool onMouseWheel(Sint32 x, Sint32 y) { return false; }
 
         /** \brief Method for handling key presses outside an event loop
          *
          * \param keyState const Uint8*
          */
-        virtual void onKeyPress(const Uint8 *keyState) {}
+//        virtual void onKeyPress(const Uint8 *keyState) {}
 };
 
-void IEventHandler::handleEvent(SDL_Event &event) {
+bool IEventHandler::handleEvent(SDL_Event &event) {
+    bool ret = false;
     switch (event.type) {
         case SDL_QUIT:
-            doQuit();
+            return onQuit();
+        case SDL_WINDOWEVENT:
+            ret = onWindowEvent(event);
             break;
         case SDL_KEYDOWN:
-            onKeyDown(event.key.keysym.sym, event.key.keysym.mod, event.key.keysym.scancode);
+            ret = onKeyDown(event.key.keysym.sym, event.key.keysym.mod, event.key.keysym.scancode);
             break;
         case SDL_KEYUP:
-            onKeyUp(event.key.keysym.sym, event.key.keysym.mod, event.key.keysym.scancode);
+            ret = onKeyUp(event.key.keysym.sym, event.key.keysym.mod, event.key.keysym.scancode);
             break;
         case SDL_MOUSEBUTTONDOWN:
-            onMouseDown(event.button.button, event.button.x, event.button.y, event.button.clicks);
+            ret = onMouseDown(event.button.button, event.button.x, event.button.y, event.button.clicks);
             break;
         case SDL_MOUSEBUTTONUP:
-            onMouseUp(event.button.button, event.button.x, event.button.y, event.button.clicks);
+            ret = onMouseUp(event.button.button, event.button.x, event.button.y, event.button.clicks);
             break;
         case SDL_MOUSEMOTION:
-            onMouseMove(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel, event.motion.state);
+            ret = onMouseMove(event.motion.x, event.motion.y, event.motion.xrel, event.motion.yrel, event.motion.state);
+            break;
+        case SDL_MOUSEWHEEL:
+            ret = onMouseWheel(event.wheel.x, event.wheel.y);
+            break;
+        default:
             break;
     }
+    return ret;
 }
 
 }

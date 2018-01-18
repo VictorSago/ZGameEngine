@@ -13,8 +13,9 @@
 
 namespace zge2d {
 
-MovingSprite::MovingSprite(int x, int y, int w, int h, std::string imagePath, bool visibility)
-                : Sprite(x, y, w, h, std::move(imagePath), visibility) {
+MovingSprite::MovingSprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, const std::string& imagePath, bool visibility)
+                : Sprite(renderTarget, x, y, w, h, imagePath, visibility) {
+    std::cout << "MovingSprite constructor 7." << std::endl;
     moveSpeed = DEFAULT_MOVESPEED;
     moveDirX = moveDirY = 0.0f;
 }
@@ -90,9 +91,9 @@ void MovingSprite::update() {
 //}
 
 
-void MovingSprite::draw() const {
+void MovingSprite::draw(SDL_Renderer* renderTarget) const {
     if (visible) {
-        texture.get()->draw(GameEngine::getInstance()->getRenderer(), &cropRect, &boundingRect);
+        texture.get()->draw(renderTarget, &cropRect, &boundingRect);
     }
 }
 
@@ -105,7 +106,7 @@ void MovingSprite::draw() {
 */
 
 //void MovingSprite::update(float deltaTime, bool active) {
-////    std::cout << "MovingSprite: update()\n";
+//    //std::cout << "MovingSprite: update()\n";
 //    if (!alwaysActive) {
 //        isActive = active;
 //    }

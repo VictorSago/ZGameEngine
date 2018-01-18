@@ -19,7 +19,7 @@ class SpriteContainer {
     private:
         unsigned int nextZ = 0;
 
-        GroupMap groups;
+        GroupMap groups{};
 
     protected:
 //        GroupIterator find(std::string gname);
@@ -28,14 +28,18 @@ class SpriteContainer {
         SpriteContainer() = default;
         virtual ~SpriteContainer();
 
-        virtual bool add(SpriteGroup* group);
-        virtual bool add(unsigned int z, SpriteGroup* group);
-        virtual bool contains(std::string groupName);
+        virtual bool addGroup(SpriteGroup *group);
+        virtual bool addGroup(SpriteGroup *group, unsigned int z);
+        virtual bool contains(const std::string& groupName) const;
         virtual bool remove(SpriteGroup* group);
-        virtual bool remove(std::string groupName);
+        virtual bool remove(const std::string& groupName);
+
+        virtual GroupMap& getGroups() { return groups; }
 
         virtual void update();
-        virtual void draw();
+        virtual void draw(SDL_Renderer* renderTarget);
+
+        virtual bool delegateEvent(SDL_Event& event);
 
         bool testCollisions();
 };

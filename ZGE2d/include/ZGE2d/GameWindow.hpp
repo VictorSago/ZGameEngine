@@ -11,10 +11,12 @@
 #include <SDL2/SDL.h>
 
 #include "Texture.hpp"
+#include "SpriteContainer.hpp"
+#include "WidgetContainer.hpp"
 
 namespace zge2d {
 
-class GameWindow {
+class GameWindow : protected IEventHandler {
     private:
         std::string name;       /**< Used to reference the window in the code and store it in a map. */
         std::string title;      /**< Window's title */
@@ -27,29 +29,43 @@ class GameWindow {
         std::shared_ptr<Texture> bgImage = nullptr;
         SDL_Color bgColor;
 
-//        SpriteContainer* sprites;
+        SpriteContainer* sprites;
+        WidgetContainer* widgets;
 
     public:
-        GameWindow(std::string winTitle);
-        GameWindow(std::string winName, std::string winTitle, SDL_Color bgcolor);
-        GameWindow(std::string winName, std::string winTitle, SDL_Color bgcolor, unsigned int w, unsigned int h);
-        GameWindow(std::string winName, std::string winTitle, std::string bg_image);
-        GameWindow(std::string winName, std::string winTitle, std::string bg_image, unsigned int w, unsigned int h);
+        explicit GameWindow(const std::string& winTitle);
+        GameWindow(const std::string& winName, const std::string& winTitle, SDL_Color bg_color);
+        GameWindow(const std::string& winName, const std::string& winTitle, SDL_Color bg_color, unsigned int w, unsigned int h);
+        GameWindow(const std::string& winName, const std::string& winTitle, const std::string& bg_image);
+        GameWindow(const std::string& winName, const std::string& winTitle, const std::string& bg_image,
+                   unsigned int w, unsigned int h);
+        GameWindow(const std::string& winName, const std::string& winTitle, const std::string& bg_image,
+                   SDL_Color bg_color, unsigned int w, unsigned int h);
         virtual ~GameWindow();
 
         std::string getName() const { return name; }
         std::string getTitle() const { return title; }
-        unsigned int getWidth() { return width; }
-        unsigned int getHeight() { return height; }
-        bool hasBackground() { return background; }
-        SDL_Renderer* getRenderTarget() { return renderTarget; }
+        void setTitle(const std::string& newTitle) { SDL_SetWindowTitle(window, newTitle.c_str()); }
+        unsigned int getWidth() const { return width; }
+        unsigned int getHeight() const { return height; }
+        bool hasBackground() const { return background; }
+        SDL_Renderer* getRenderer() const { return renderTarget; }
 
-//        SpriteContainer* getSprites() { return sprites; }
+        void addWidget(Widget* w) { widgets->add(w); }
+        void addSpriteGroup(SpriteGroup* sg) { sprites->addGroup(sg); }
+//        SpriteContainer* getSpriteContainer() { return sprites; }
+//        WidgetContainer* getWidgetContainer() { return widgets; }
 
 //        void updateSprites(float deltaTime, const Uint8 *keyState);
         virtual void updateSprites();
         virtual void update();
         virtual void draw();
+
+    public:
+        bool handleEvent(SDL_Event& event) override;
+
+    protected:
+        bool onWindowEvent(SDL_Event& event) override;
 
 };
 

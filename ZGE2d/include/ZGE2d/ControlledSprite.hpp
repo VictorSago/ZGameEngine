@@ -15,18 +15,20 @@ class ControlledSprite : public MovingSprite {
         std::vector<SDL_Scancode> controls;
 
     public:
-        ControlledSprite(int x, int y, int w, int h, std::string filePath, bool visibility);
+        ControlledSprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, std::string filePath, bool visibility);
         virtual ~ControlledSprite();
 
         virtual void setControls(SDL_Scancode* keys, int num);
 
 //        virtual void update(float deltaTime, bool active);
 //        virtual void update(float deltaTime);
-        virtual void update();
+        void update() override;
 
-        virtual void handleControls(const Uint8* keyState) = 0;
+        virtual void handleControls(const Uint8* keyState) {}
 
+#ifdef DEBUG_BUILD
         virtual std::string toString();
+#endif
 
 };
 

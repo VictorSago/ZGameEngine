@@ -8,16 +8,18 @@
 
 namespace zge2d {
 
-SpriteGroup::SpriteGroup(std::string gname) {
+SpriteGroup::SpriteGroup(const std::string& gname) {
+    std::cout << "SpriteGroup constructor.\n";
+    sprites = new SpriteVector();
     name = gname;
 }
 
 SpriteGroup::~SpriteGroup() {
     std::cout << "SpriteGroup destructor.\n";
-    for(auto& it : sprites) {
+    for (auto it : *sprites) {
         delete it;
     }
-    sprites.clear();
+    sprites->clear();
 }
 /*
 SpriteGroup SpriteGroup::copyGroup() {
@@ -29,25 +31,26 @@ SpriteGroup SpriteGroup::copyGroup() {
 }
 */
 
-void SpriteGroup::add(Sprite *sprite) {
-    sprites.push_back(sprite);
-    size = sprites.size();
+void SpriteGroup::add(Sprite* sprite) {
+    std::cout << "Adding Sprite to SpriteGroup " << name << std::endl;
+    sprites->push_back(sprite);
+    size = sprites->size();
 }
 
-void SpriteGroup::remove(Sprite *spr) {
+void SpriteGroup::remove(Sprite* sprite) {
     // @TODO: Rework
-    for(unsigned int i = 0; i < size; i++) {
-        if(*sprites[i] == *spr) {
-            sprites.erase(sprites.begin() + i);
+    for (unsigned int i = 0; i < size; i++) {
+        if ((*sprites)[i] == sprite) {
+            sprites->erase(sprites->begin() + i);
         }
     }
-    size = sprites.size();
+    size = sprites->size();
 }
 
-bool SpriteGroup::contains(Sprite *spr) {
+bool SpriteGroup::contains(Sprite* sprite) const {
     // @TODO: Rework
-    for(unsigned int i = 0; i < size; i++) {
-        if(*sprites[i] == *spr) {
+    for (unsigned int i = 0; i < size; i++) {
+        if ((*sprites)[i] == sprite) {
             return true;
         }
     }
@@ -55,39 +58,47 @@ bool SpriteGroup::contains(Sprite *spr) {
 }
 
 void SpriteGroup::emptyGroup() {
-    for(auto it : sprites) {
+    for (auto it : *sprites) {
         delete it;
     }
-    sprites.clear();
-    size = sprites.size();
+    sprites->clear();
+    size = sprites->size();
 }
 
+/*
 bool SpriteGroup::operator==(const SpriteGroup &other) const {
     return name == other.name && size == other.size;
 }
+*/
 
 void SpriteGroup::setVisibleAll(bool v) {
-    for(auto s : sprites) {
+    for(auto s : *sprites) {
         s->setVisible(v);
     }
 }
 
 void SpriteGroup::setVisible(int idx, bool v) {
-    sprites[idx]->setVisible(v);
+    (*sprites)[idx]->setVisible(v);
+}
+
+bool SpriteGroup::delegateEvent(SDL_Event& event) {
+    for (auto s : *sprites) {
+        s->handleEvent(event);
+    }
 }
 
 void SpriteGroup::update() {
-    if(!sprites.empty()) {          // @FIXME: Is it necessary?
-        for(auto s : sprites) {
+    if(!sprites->empty()) {          // @FIXME: Is it necessary?
+        for(auto s : *sprites) {
             s->update();
         }
     }
 }
 
-void SpriteGroup::draw() {
-    if(!sprites.empty()) {          // @FIXME: Is it necessary?
-        for(auto s : sprites) {
-            s->draw();
+void SpriteGroup::draw(SDL_Renderer* renderTarget) {
+    if(!sprites->empty()) {          // @FIXME: Is it necessary?
+        for(auto s : *sprites) {
+            s->draw(renderTarget);
         }
     }
 }
@@ -99,8 +110,8 @@ bool SpriteGroup::testIntersectInGroup() {
     bool ret = false;
     for(unsigned int i = 0; i < size; i++) {
         for(unsigned int j = i+1; j < size; j++) {
-            Sprite* sprite1 = sprites[i];
-            Sprite* sprite2 = sprites[j];
+            Sprite* sprite1 = (*sprites)[i];
+            Sprite* sprite2 = (*sprites)[j];
             sprite1->collision(sprite2);
 //            bool temp = sprite1->collision(sprite2);
 //            ret = ret || temp;
@@ -109,12 +120,13 @@ bool SpriteGroup::testIntersectInGroup() {
     return ret;
 }
 
+// @EXPERIMENTAL
 SpriteVector SpriteGroup::vicinity(SDL_Rect &area) {
     SpriteVector ret;
     for(unsigned int i = 0; i < size; i++) {
-        const SDL_Rect& rect = sprites[i]->getBoundingRect();
+        const SDL_Rect& rect = (*sprites)[i]->getBoundingRect();
         if(SDL_HasIntersection(&area, &rect)) {
-            ret.push_back(sprites[i]);
+            ret.push_back((*sprites)[i]);
         }
     }
     return ret;

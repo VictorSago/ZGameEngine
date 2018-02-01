@@ -21,8 +21,8 @@
 namespace zge2d {
 
     const int defaultFPS 		= 60;
-    const int minFPS            = 8;
-    const int maxFPS            = 128;
+    const int minFPS            = 10;
+    const int maxFPS            = 130;
 
     const int defaultWinWidth 	= 1024;
     const int defaultWinHeight 	= 768;

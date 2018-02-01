@@ -16,7 +16,6 @@ Session::Session() {
 }
 
 Session::~Session() {
-//    components.clear();
     std::cout << "Session destructor..." << std::endl;
     for (auto win : windows) {
         delete win.second;
@@ -154,6 +153,52 @@ void Session::stop() {
 
 bool Session::onQuit() {
     stop();
+    return true;
 }
+
+/*
+bool Session::handleEvent(SDL_Event& event) {
+    bool ret = false;
+    auto fPtr = eventMap.find(event.type);
+    if (fPtr != eventMap.end()) {
+        ret = fPtr->second(this, event);
+    } else {
+        switch (event.type) {
+            case SDL_QUIT:
+                return onQuit();
+            case SDL_WINDOWEVENT:
+                ret = onWindowEvent(event);
+                break;
+            case SDL_KEYDOWN:
+                ret = onKeyDown(event);
+                break;
+            case SDL_KEYUP:
+                ret = onKeyUp(event);
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                ret = onMouseDown(event);
+                break;
+            case SDL_MOUSEBUTTONUP:
+                ret = onMouseUp(event);
+                break;
+            case SDL_MOUSEMOTION:
+                ret = onMouseMove(event);
+                break;
+            case SDL_MOUSEWHEEL:
+                ret = onMouseWheel(event);
+                break;
+            default:
+                break;
+        }
+    }
+    return ret;
+}
+*/
+
+/*
+bool Session::addEventHandler(SDL_EventType eventType, fptr_Handler handlerFunc) {
+    return eventMap.emplace(eventType, handlerFunc).second;
+}
+*/
 
 }

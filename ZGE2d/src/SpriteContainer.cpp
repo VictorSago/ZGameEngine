@@ -13,8 +13,10 @@ namespace zge2d {
 SpriteContainer::~SpriteContainer() {
     std::cout << "Entering SpriteContainer destructor." << std::endl;
     for(auto& it : groups) {
-        std::cout << "Deleting member SpriteGroup \'"<< it.second->getName() << "\'" << std::endl;
-        delete it.second;
+        if (it.second != nullptr) {
+            std::cout << "Deleting member SpriteGroup \'"<< it.second->getName() << "\'" << std::endl;
+            delete it.second;
+        }
     }
     groups.clear();
 }

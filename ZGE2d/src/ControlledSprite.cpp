@@ -16,16 +16,18 @@ ControlledSprite::~ControlledSprite() {
     controls.clear();
 }
 
+/*
 void ControlledSprite::setControls(SDL_Scancode* keys, int num) {
     controls.clear();
     for (int i = 0; i < num; i++) {
         controls.push_back(keys[i]);
     }
 }
+*/
 
 void ControlledSprite::update() {
     const Uint8* keyStates = SDL_GetKeyboardState(nullptr);
-    handleControls(keyStates);
+//    handleControls(keyStates);
     if(collisionHandler) {
         handleCollisions();
     }

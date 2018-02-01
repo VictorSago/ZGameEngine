@@ -12,9 +12,6 @@ namespace zge2d {
 class GameEngine {
     protected:
         static GameEngine engineInstance;
-    private:
-//        SDL_Window* window;
-//        SDL_Renderer* renderer;
     protected:
         /** \brief Field for storing a pointer to KeyStates
          *  These key states are read outside the event loop
@@ -28,8 +25,6 @@ class GameEngine {
         virtual ~GameEngine();
 
         static GameEngine* getInstance() {return &engineInstance;}
-//        SDL_Renderer* getRenderer() const;
-//        SDL_Window* getWindow() const;
 
         const Uint8* getKeyState() { return keyState; }
 

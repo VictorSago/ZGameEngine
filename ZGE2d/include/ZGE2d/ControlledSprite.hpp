@@ -10,21 +10,23 @@
 
 namespace zge2d {
 
+typedef bool (*cFunc)();
+
 class ControlledSprite : public MovingSprite {
     protected:
-        std::vector<SDL_Scancode> controls;
+        std::map<SDL_Scancode, cFunc > controls;
 
     public:
         ControlledSprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, std::string filePath, bool visibility);
         virtual ~ControlledSprite();
 
-        virtual void setControls(SDL_Scancode* keys, int num);
+//        virtual void setControls(SDL_Scancode* keys, int num);
 
 //        virtual void update(float deltaTime, bool active);
 //        virtual void update(float deltaTime);
         void update() override;
 
-        virtual void handleControls(const Uint8* keyState) {}
+//        virtual void handleControls(const Uint8* keyState);
 
 #ifdef DEBUG_BUILD
         virtual std::string toString();

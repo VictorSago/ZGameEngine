@@ -9,19 +9,23 @@
 #include <vector>
 
 #include "Definitions.hpp"
-#include "VisEntity.hpp"
+//#include "VisEntity.hpp"
 #include "Timer.hpp"
 #include "IEventHandler.hpp"
 #include "GameWindow.hpp"
 
-
 namespace zge2d {
 
-class Session : protected IEventHandler {
+
+
+class Session : public IEventHandler {
+    public:
+//        typedef bool (*fptr_Handler)(Session*, SDL_Event&);
     private:
         bool quit = false;
         Timer timer;
 
+//        std::map<Uint32, fptr_Handler > eventMap;                    /**< Can't use SDL_EventType as the map key */
 //        const Uint8* keyState;
 
     protected:
@@ -47,8 +51,13 @@ class Session : protected IEventHandler {
         void run();
         void stop();
 
+        Timer* getMainTimer() { return &timer; }
     protected:
         bool onQuit() override;
+
+    public:
+//        bool handleEvent(SDL_Event& event) override;
+//        bool addEventHandler(SDL_EventType eventType, fptr_Handler handlerFunc);
 
 };
 

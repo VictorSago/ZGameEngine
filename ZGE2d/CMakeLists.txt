@@ -39,7 +39,7 @@ add_library(ZGE2dLib SHARED "")
 
 target_sources(ZGE2dLib
         PRIVATE
-            ${ZGE2D_INC_DIR}/IEventHandler.hpp
+            ${ZGE2D_SRC_DIR}/IEventHandler.cpp
             ${ZGE2D_SRC_DIR}/GameEngine.cpp
             ${ZGE2D_SRC_DIR}/Session.cpp
             ${ZGE2D_SRC_DIR}/GameWindow.cpp
@@ -55,6 +55,7 @@ target_sources(ZGE2dLib
             ${ZGE2D_SRC_DIR}/SpriteContainer.cpp
             ${ZGE2D_SRC_DIR}/WidgetContainer.cpp
         PUBLIC
+            ${ZGE2D_INC_DIR}/IEventHandler.hpp
             ${ZGE2D_INC_DIR}/Definitions.hpp
             ${ZGE2D_INC_DIR}/GameEngine.hpp
             ${ZGE2D_INC_DIR}/Session.hpp

@@ -10,7 +10,8 @@ bool IEventHandler::handleEvent(SDL_Event& event) {
     bool handled = false;
     auto fPtr = eventMap.find(event.type);
     if (fPtr != eventMap.end()) {
-        handled = fPtr->second(this, event);
+//        handled = fPtr->second(this, event);
+        handled = fPtr->second(event);
     } else {
         switch (event.type) {
             case SDL_QUIT:

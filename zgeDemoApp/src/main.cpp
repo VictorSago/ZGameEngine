@@ -5,12 +5,11 @@
 #include <string>
 #include <iostream>
 #include <SDL2/SDL.h>
-#include <ZGE2d/MovingSprite.hpp>
 
 #include "ZGE2d/GameEngine.hpp"
 #include "ZGE2d/Session.hpp"
 #include "ZGE2d/Label.hpp"
-#include "ZGE2d/Sprite.hpp"
+#include "ZGE2d/MovingSprite.hpp"
 
 #define MAIN_FONT_LOCATION "../../zgeDemoApp/res/DejaVuSans.ttf"
 #define PACMAN1_PATH "../../zgeDemoApp/res/Pacman-chomper.png"
@@ -20,8 +19,8 @@ using namespace std;
 
 using namespace zge2d;
 
-bool SessionQuitEvent(IEventHandler* obj, SDL_Event& e) {
-    auto s = reinterpret_cast<Session*>(obj);
+bool SessionQuitEvent(Session* s, SDL_Event& e) {
+//    auto s = reinterpret_cast<Session*>(obj);
     if (e.type == SDL_QUIT) {
         cout << "Session caught an SDL_QUIT event\n";
     }
@@ -29,8 +28,8 @@ bool SessionQuitEvent(IEventHandler* obj, SDL_Event& e) {
     return true;
 }
 
-bool SessionKeyEvent(IEventHandler* obj, SDL_Event& e) {
-    auto s = reinterpret_cast<Session*>(obj);
+bool SessionKeyEvent(Session* s, SDL_Event& e) {
+//    auto s = reinterpret_cast<Session*>(obj);
     bool handled = false;
     if (e.type == SDL_KEYDOWN) {
         unsigned int f;
@@ -54,8 +53,8 @@ bool SessionKeyEvent(IEventHandler* obj, SDL_Event& e) {
     return handled;
 }
 
-bool LabelMouseEvent(IEventHandler* obj, SDL_Event& e){
-    auto lbl = reinterpret_cast<Label*>(obj);
+bool LabelMouseEvent(Label* lbl, SDL_Event& e){
+//    auto lbl = reinterpret_cast<Label*>(obj);
     bool handled = false;
     int mouseX, mouseY;
     if (e.type == SDL_MOUSEMOTION) {
@@ -72,8 +71,8 @@ bool LabelMouseEvent(IEventHandler* obj, SDL_Event& e){
     return handled;
 }
 
-bool SpriteMouseEvent(IEventHandler* obj, SDL_Event& e){
-    auto spr = reinterpret_cast<Sprite*>(obj);
+bool SpriteMouseEvent(Sprite* spr, SDL_Event& e){
+//    auto spr = reinterpret_cast<Sprite*>(obj);
     bool handled = false;
     int mouseX, mouseY;
     if (e.type == SDL_MOUSEMOTION) {
@@ -101,12 +100,12 @@ int main(int argc, char** argv) {
 
     GameWindow* window = session.newWindow("MainWindow", "Main Game Window");
 
-    session.registerEventHandler(SDL_QUIT, &SessionQuitEvent);
-    session.registerEventHandler(SDL_KEYDOWN, &SessionKeyEvent);
+    session.registerEventHandler(SDL_QUIT, std::bind(&SessionQuitEvent, &session, std::placeholders::_1));
+    session.registerEventHandler(SDL_KEYDOWN, std::bind(&SessionKeyEvent, &session, std::placeholders::_1));
 
     Label* lbl1 = Label::getInstance(window->getRenderer(), 200, 100, "Some Text", MAIN_FONT_LOCATION, {0, 255, 255}, 36);
     Label* lbl2 = Label::getInstance(window->getRenderer(), 200, 150, "This is a Label!", MAIN_FONT_LOCATION, {255, 0, 255}, 24);
-    lbl2->registerEventHandler(SDL_MOUSEMOTION, &LabelMouseEvent);
+    lbl2->registerEventHandler(SDL_MOUSEMOTION, std::bind(&LabelMouseEvent, lbl2, std::placeholders::_1));
     window->addWidget(lbl1);
     window->addWidget(lbl2);
     SpriteGroup* sg1 = new SpriteGroup("Sprites");
@@ -123,8 +122,8 @@ int main(int argc, char** argv) {
     };
     sprite1->addAnimation(new Animation("right", frames1r));
     sprite1->addAnimation(new Animation("rotation", rot, 4));
-    sprite1->registerEventHandler(SDL_MOUSEMOTION, &SpriteMouseEvent);
-//    sprite1->setCurrentAnimation("rotation");
+    sprite1->registerEventHandler(SDL_MOUSEMOTION, std::bind(&SpriteMouseEvent, sprite1, std::placeholders::_1));
+    sprite1->setCurrentAnimation("rotation");
     MovingSprite* sprite2 = new MovingSprite(window->getRenderer(), 100, 350, 32, 32, PACMAN2_PATH, true);
     Frames frames3r = {
             { 0, 0, 32, 32},
@@ -142,24 +141,17 @@ int main(int argc, char** argv) {
     };
     sprite2->addAnimation(new Animation("right", frames3r, 30));
     sprite2->setMoveDir(0, 0);
-    sprite2->registerEventHandler(SDL_MOUSEMOTION, &SpriteMouseEvent);
+    sprite2->registerEventHandler(SDL_MOUSEMOTION, std::bind(&SpriteMouseEvent, sprite2, std::placeholders::_1));
     sg1->add(sprite1);
     sg1->add(sprite2);
     window->addSpriteGroup(sg1);
-//    session.addElement(sprite1);
-//    session.addElement(sprite2);
+
     cout << "Starting run().............\n";
     session.run();
     cout << "run() ended............\n";
-//    delete sg1;
 
 //    cout << "Label1 size: (" << lbl1->getW() << ", " << lbl1->getH() << ")" << endl;
 //    cout << "Label2 size: (" << lbl2->getW() << ", " << lbl2->getH() << ")" << endl;
-
-//    delete sprite2;
-//    delete sprite1;
-//    delete lbl2;
-//    delete lbl1;
 
     return GameEngine::error_flags;
 }

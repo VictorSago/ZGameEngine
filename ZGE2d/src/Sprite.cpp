@@ -9,15 +9,13 @@
 
 #include <SDL2/SDL.h>
 
-#include "GameEngine.hpp"
 #include "Sprite.hpp"
-#include "Definitions.hpp"
 
 namespace zge2d {
 
 
 Sprite::Sprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, const std::string& imagePath, bool visibility)
-        : VisEntity(x, y, w, h, visibility) {
+        : Entity(x, y, w, h, visibility) {
     std::cout << "Sprite constructor 7." << std::endl;
     Texture* pTexture = Texture::loadTexture(renderTarget, imagePath);
     texture = std::shared_ptr<Texture>(pTexture);
@@ -28,7 +26,7 @@ Sprite::Sprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, const std
 }
 
 Sprite::Sprite(SDL_Renderer* renderTarget, const SDL_Rect& r, const std::string& imagePath, bool visibility)
-        : VisEntity(r, visibility) {
+        : Entity(r, visibility) {
     std::cout << "Sprite constructor 4." << std::endl;
     Texture* pTexture = Texture::loadTexture(renderTarget, imagePath);
     texture = std::shared_ptr<Texture>(pTexture);
@@ -126,7 +124,6 @@ std::string Sprite::toString() {
     ss << "    current animation: " << currentAnimation << "\n";
     return ss.str();
 }
-
 #endif
 
 /*

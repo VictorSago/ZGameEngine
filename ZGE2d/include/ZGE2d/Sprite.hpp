@@ -10,13 +10,13 @@
 #include <map>
 #include <set>
 
-#include "VisEntity.hpp"
+#include "Entity.hpp"
 #include "Texture.hpp"
 #include "Animation.hpp"
 
 namespace zge2d {
 
-class Sprite : public VisEntity {
+class Sprite : public Entity {
     protected:
         std::shared_ptr<Texture> texture;
         SDL_Rect cropRect;

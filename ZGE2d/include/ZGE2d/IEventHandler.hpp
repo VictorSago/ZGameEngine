@@ -18,15 +18,13 @@ namespace zge2d {
  */
 class IEventHandler {
     public:
-        typedef bool (*fptr_Handler)(IEventHandler*, SDL_Event&);
 //        using EventHandler_fptr = std::function<bool(IEventHandler*, SDL_Event&)>;
         typedef std::function<bool(IEventHandler*, SDL_Event&)> EventHandler_f;
 
     protected:
         std::map<Uint32, EventHandler_f > eventMap;
     public:
-//        bool addEventHandler(SDL_EventType eventType, fptr_Handler handlerFunc);
-        bool addEventHandler(SDL_EventType eventType, EventHandler_f handlerFunc);
+        bool registerEventHandler(SDL_EventType eventType, EventHandler_f handlerFunc);
     protected:
         virtual ~IEventHandler() = default;
 

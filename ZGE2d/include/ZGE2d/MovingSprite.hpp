@@ -9,11 +9,8 @@
 #include <string>
 
 #include "Sprite.hpp"
-//#include "GameEngine.hpp"
 
 namespace zge2d {
-
-//class GameEngine;
 
 class MovingSprite : public Sprite {
     protected:

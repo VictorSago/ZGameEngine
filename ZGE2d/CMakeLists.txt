@@ -45,7 +45,7 @@ target_sources(ZGE2dLib
             ${ZGE2D_SRC_DIR}/GameWindow.cpp
             ${ZGE2D_SRC_DIR}/Timer.cpp
             ${ZGE2D_SRC_DIR}/Texture.cpp
-            ${ZGE2D_SRC_DIR}/VisEntity.cpp
+            ${ZGE2D_SRC_DIR}/Entity.cpp
             ${ZGE2D_SRC_DIR}/Label.cpp
             ${ZGE2D_SRC_DIR}/Animation.cpp
             ${ZGE2D_SRC_DIR}/Sprite.cpp
@@ -53,6 +53,7 @@ target_sources(ZGE2dLib
             ${ZGE2D_SRC_DIR}/ControlledSprite.cpp
             ${ZGE2D_SRC_DIR}/SpriteGroup.cpp
             ${ZGE2D_SRC_DIR}/SpriteContainer.cpp
+            ${ZGE2D_SRC_DIR}/Widget.cpp
             ${ZGE2D_SRC_DIR}/WidgetContainer.cpp
         PUBLIC
             ${ZGE2D_INC_DIR}/IEventHandler.hpp
@@ -62,7 +63,7 @@ target_sources(ZGE2dLib
             ${ZGE2D_INC_DIR}/GameWindow.hpp
             ${ZGE2D_INC_DIR}/Timer.hpp
             ${ZGE2D_INC_DIR}/Texture.hpp
-            ${ZGE2D_INC_DIR}/VisEntity.hpp
+            ${ZGE2D_INC_DIR}/Entity.hpp
             ${ZGE2D_INC_DIR}/Label.hpp
             ${ZGE2D_INC_DIR}/Animation.hpp
             ${ZGE2D_INC_DIR}/Sprite.hpp
@@ -70,6 +71,7 @@ target_sources(ZGE2dLib
             ${ZGE2D_INC_DIR}/ControlledSprite.hpp
             ${ZGE2D_INC_DIR}/SpriteGroup.hpp
             ${ZGE2D_INC_DIR}/SpriteContainer.hpp
+            ${ZGE2D_INC_DIR}/Widget.hpp
             ${ZGE2D_INC_DIR}/WidgetContainer.hpp
         )
 

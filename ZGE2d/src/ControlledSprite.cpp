@@ -4,7 +4,6 @@
 
 #include <sstream>
 #include "ControlledSprite.hpp"
-#include "GameEngine.hpp"
 
 namespace zge2d {
 

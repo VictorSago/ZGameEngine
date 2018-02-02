@@ -6,9 +6,7 @@
 
 #include "SpriteContainer.hpp"
 
-
 namespace zge2d {
-
 
 SpriteContainer::~SpriteContainer() {
     std::cout << "Entering SpriteContainer destructor." << std::endl;

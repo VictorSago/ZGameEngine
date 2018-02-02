@@ -48,13 +48,7 @@ bool IEventHandler::handleEvent(SDL_Event& event) {
     return handled;
 }
 
-/*
-bool IEventHandler::addEventHandler(SDL_EventType eventType, fptr_Handler handlerFunc) {
-    return eventMap.emplace(eventType, handlerFunc).second;
-}
-*/
-
-bool IEventHandler::addEventHandler(SDL_EventType eventType, EventHandler_f handlerFunc) {
+bool IEventHandler::registerEventHandler(SDL_EventType eventType, EventHandler_f handlerFunc) {
     return eventMap.emplace(eventType, handlerFunc).second;
 }
 

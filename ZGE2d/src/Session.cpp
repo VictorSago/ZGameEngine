@@ -6,7 +6,6 @@
 #include <utility>
 #include <SDL2/SDL.h>
 
-#include "GameEngine.hpp"
 #include "Session.hpp"
 
 namespace zge2d {
@@ -22,7 +21,6 @@ Session::~Session() {
     }
     windows.clear();
 }
-
 
 GameWindow* Session::newWindow(const std::string& winName, const std::string& winTitle,
                                const std::string& bg_image, SDL_Color bgColor, unsigned int w, unsigned int h) {
@@ -52,12 +50,6 @@ GameWindow* Session::newWindow(const std::string& winName, const std::string& wi
 GameWindow* Session::newWindow(const std::string& winTitle) {
     return newWindow(winTitle, winTitle, defaultWinBackground, defaultWinWidth, defaultWinHeight);
 }
-
-/*
-void Session::addElement(VisEntity *comp) {
-//    components.push_back(comp);
-}
-*/
 
 void Session::run() {
     if (currentWindow == nullptr) {
@@ -119,12 +111,12 @@ void Session::run() {
                     }
                     break;
                 case SDL_KEYDOWN:
-                    for (VisEntity* c : components) {
+                    for (Entity* c : components) {
                         c->keyDown(eve);
                     }
                     break;
                 case SDL_KEYUP:
-                    for (VisEntity* c : components) {
+                    for (Entity* c : components) {
                         c->keyUp(eve);
                     }
                     break;
@@ -133,12 +125,12 @@ void Session::run() {
             } // Switch
         } // while event
         timer.capFPS();
-        for (VisEntity* c : components) {
+        for (Entity* c : components) {
             c->update();
         }
         SDL_Renderer* renderTarget = currentWindow->getRenderer();
         SDL_RenderClear(renderTarget);
-        for (VisEntity* c : components) {
+        for (Entity* c : components) {
             c->draw(renderTarget);
         }
         SDL_RenderPresent(renderTarget);
@@ -155,50 +147,5 @@ bool Session::onQuit() {
     stop();
     return true;
 }
-
-/*
-bool Session::handleEvent(SDL_Event& event) {
-    bool ret = false;
-    auto fPtr = eventMap.find(event.type);
-    if (fPtr != eventMap.end()) {
-        ret = fPtr->second(this, event);
-    } else {
-        switch (event.type) {
-            case SDL_QUIT:
-                return onQuit();
-            case SDL_WINDOWEVENT:
-                ret = onWindowEvent(event);
-                break;
-            case SDL_KEYDOWN:
-                ret = onKeyDown(event);
-                break;
-            case SDL_KEYUP:
-                ret = onKeyUp(event);
-                break;
-            case SDL_MOUSEBUTTONDOWN:
-                ret = onMouseDown(event);
-                break;
-            case SDL_MOUSEBUTTONUP:
-                ret = onMouseUp(event);
-                break;
-            case SDL_MOUSEMOTION:
-                ret = onMouseMove(event);
-                break;
-            case SDL_MOUSEWHEEL:
-                ret = onMouseWheel(event);
-                break;
-            default:
-                break;
-        }
-    }
-    return ret;
-}
-*/
-
-/*
-bool Session::addEventHandler(SDL_EventType eventType, fptr_Handler handlerFunc) {
-    return eventMap.emplace(eventType, handlerFunc).second;
-}
-*/
 
 }

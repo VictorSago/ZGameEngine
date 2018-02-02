@@ -101,12 +101,12 @@ int main(int argc, char** argv) {
 
     GameWindow* window = session.newWindow("MainWindow", "Main Game Window");
 
-    session.addEventHandler(SDL_QUIT, &SessionQuitEvent);
-    session.addEventHandler(SDL_KEYDOWN, &SessionKeyEvent);
+    session.registerEventHandler(SDL_QUIT, &SessionQuitEvent);
+    session.registerEventHandler(SDL_KEYDOWN, &SessionKeyEvent);
 
     Label* lbl1 = Label::getInstance(window->getRenderer(), 200, 100, "Some Text", MAIN_FONT_LOCATION, {0, 255, 255}, 36);
     Label* lbl2 = Label::getInstance(window->getRenderer(), 200, 150, "This is a Label!", MAIN_FONT_LOCATION, {255, 0, 255}, 24);
-    lbl2->addEventHandler(SDL_MOUSEMOTION, &LabelMouseEvent);
+    lbl2->registerEventHandler(SDL_MOUSEMOTION, &LabelMouseEvent);
     window->addWidget(lbl1);
     window->addWidget(lbl2);
     SpriteGroup* sg1 = new SpriteGroup("Sprites");
@@ -123,7 +123,7 @@ int main(int argc, char** argv) {
     };
     sprite1->addAnimation(new Animation("right", frames1r));
     sprite1->addAnimation(new Animation("rotation", rot, 4));
-    sprite1->addEventHandler(SDL_MOUSEMOTION, &SpriteMouseEvent);
+    sprite1->registerEventHandler(SDL_MOUSEMOTION, &SpriteMouseEvent);
 //    sprite1->setCurrentAnimation("rotation");
     MovingSprite* sprite2 = new MovingSprite(window->getRenderer(), 100, 350, 32, 32, PACMAN2_PATH, true);
     Frames frames3r = {
@@ -142,7 +142,7 @@ int main(int argc, char** argv) {
     };
     sprite2->addAnimation(new Animation("right", frames3r, 30));
     sprite2->setMoveDir(0, 0);
-    sprite2->addEventHandler(SDL_MOUSEMOTION, &SpriteMouseEvent);
+    sprite2->registerEventHandler(SDL_MOUSEMOTION, &SpriteMouseEvent);
     sg1->add(sprite1);
     sg1->add(sprite2);
     window->addSpriteGroup(sg1);

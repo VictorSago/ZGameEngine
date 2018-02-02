@@ -10,19 +10,20 @@
 
 namespace zge2d {
 
-class VisEntity : public IEventHandler {
+class Entity : public IEventHandler {
     protected:
         SDL_Rect boundingRect;
         bool visible;
     protected:
-        VisEntity(int x, int y, int w, int h, bool visibility = true);
-        explicit VisEntity(const SDL_Rect& r, bool visibility = true);
+        Entity(int x, int y, int w, int h, bool visibility = true);
+        explicit Entity(const SDL_Rect& r, bool visibility = true);
 
     public:
-        virtual ~VisEntity() = default;
+        virtual ~Entity() = default;
 
         const SDL_Rect& getBoundingRect() const { return boundingRect; }
         void setBoundingRect(SDL_Rect& rect) { boundingRect = rect; }
+        void setBoundingRect(int xPos, int yPos, int width, int height);
 
         int getX() const { return boundingRect.x; }
         int getY() const { return boundingRect.y; }
@@ -36,17 +37,12 @@ class VisEntity : public IEventHandler {
         virtual void setVisible(const bool v) { visible = v; }
 
     public:
-//        virtual void mouseDown(const SDL_Event& eve) {}
-//        virtual void mouseUp(const SDL_Event& eve) {}
-//        virtual void keyDown(const SDL_Event& eve) {}
-//        virtual void keyUp(const SDL_Event& eve) {}
-
         virtual void update() = 0;
         virtual void draw(struct SDL_Renderer* renderTarget) const = 0;
 
     public:
-        VisEntity(const VisEntity&) = delete;
-        virtual const VisEntity& operator=(const VisEntity&) = delete;
+        Entity(const Entity&) = delete;
+        virtual const Entity& operator=(const Entity&) = delete;
 
 #ifdef DEBUG_BUILD
         /** @brief A textual representation of a visual component

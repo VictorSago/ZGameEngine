@@ -8,25 +8,27 @@ enable_testing()
 
 find_package(Boost OPTIONAL_COMPONENTS unit_test_framework)
 
-message("Boost_Found 1: " ${Boost_FOUND})
-message("  include dirs: ${Boost_INCLUDE_DIRS}")
-message("  libs: ${Boost_LIBRARIES}")
+add_subdirectory(ZVecLib)
+
+#message("Boost_Found 1: " ${Boost_FOUND})
+#message("  include dirs: ${Boost_INCLUDE_DIRS}")
+#message("  libs: ${Boost_LIBRARIES}")
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 
-message("SDL2_Found 2: " ${SDL2_FOUND})
-message("  include dirs: ${SDL2_INCLUDE_DIR}")
-message("  libs: ${SDL2_LIBRARY}")
-
-message("SDL2_image_Found 2: " ${SDL2_IMAGE_FOUND})
-message("  include dirs: " ${SDL2_IMAGE_INCLUDE_DIR})
-message("  libs: ${SDL2_IMAGE_LIBRARY}")
-
-message("SDL2_ttf_Found 2: ${SDL2_TTF_FOUND}")
-message("  include dirs: ${SDL2_TTF_INCLUDE_DIRS}")
-message("  libs: ${SDL2_TTF_LIBRARIES}")
+#message("SDL2_Found 2: " ${SDL2_FOUND})
+#message("  include dirs: ${SDL2_INCLUDE_DIR}")
+#message("  libs: ${SDL2_LIBRARY}")
+#
+#message("SDL2_image_Found 2: " ${SDL2_IMAGE_FOUND})
+#message("  include dirs: " ${SDL2_IMAGE_INCLUDE_DIR})
+#message("  libs: ${SDL2_IMAGE_LIBRARY}")
+#
+#message("SDL2_ttf_Found 2: ${SDL2_TTF_FOUND}")
+#message("  include dirs: ${SDL2_TTF_INCLUDE_DIR}")
+#message("  libs: ${SDL2_TTF_LIBRARY}")
 
 set(ZGE2D_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/src)
 set(ZGE2D_INC_DIR ${CMAKE_CURRENT_LIST_DIR}/include/${PROJECT_NAME})
@@ -75,13 +77,13 @@ target_sources(ZGE2dLib
             ${ZGE2D_INC_DIR}/WidgetContainer.hpp
         )
 
-target_link_libraries(ZGE2dLib ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARIES})
+target_link_libraries(ZGE2dLib ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARY})
 
 #target_compile_definitions(ZGE2dLib PUBLIC DEBUG_BUILD=1)
 
-if (Boost_FOUND)
+if(Boost_FOUND)
     # Add tests
-endif ()
+endif()
 
 #message("CMake Module Path 1: " ${CMAKE_MODULE_PATH})
-message("ZGE2dLib 2: " ${ZGE2dLib})
+#message("ZGE2dLib 2: " ${ZGE2dLib})

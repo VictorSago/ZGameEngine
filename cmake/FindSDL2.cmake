@@ -51,7 +51,9 @@
 # This needed to change because "proper" SDL convention
 # is #include "SDL.h", not <SDL2/SDL.h>. This is done for portability
 # reasons because not all systems place things in SDL2/ (see FreeBSD).
-
+#
+# Modified by Victor Sago
+#
 #=============================================================================
 # This software is distributed under the OSI-approved
 # BSD License (the "License");
@@ -142,7 +144,7 @@ find_path(SDL2_INCLUDE_DIR SDL.h
         ${SDL2_SEARCH_PATHS}
 )
 
-if(CMAKE_SIZEOF_VOID_P EQUAL 8) 
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 	set(PATH_SUFFIXES lib64 lib/x64 lib)
 else() 
 	set(PATH_SUFFIXES lib/x86 lib)

@@ -18,6 +18,8 @@
 # module, but with modifications to recognize OS X frameworks and
 # additional Unix paths (FreeBSD, etc).
 #
+# Modified by Victor Sago.
+#
 #=============================================================================
 # Copyright 2005-2009 Kitware, Inc.
 # Copyright 2012 Benjamin Eikel
@@ -90,6 +92,7 @@ set(SDL2_IMAGE_SEARCH_PATHS
         /opt/csw # Blastwave
         /opt
         ${SDL2_PATH}
+        ${SDL2_IMAGE_PATH}
         )
 
 #message("SDL2_IMAGE_PATH: " ${SDL2_IMAGE_PATH})
@@ -130,7 +133,7 @@ find_library(SDL2_IMAGE_LIBRARIES
             lib64
             ${VC_LIB_PATH_SUFFIX}
         PATHS
-            ${SDL2_IMAGE_PATH}
+            ${SDL2_IMAGE_SEARCH_PATHS}
         )
 
 if(SDL2_IMAGE_INCLUDE_DIRS AND EXISTS "${SDL2_IMAGE_INCLUDE_DIRS}/SDL_image.h")

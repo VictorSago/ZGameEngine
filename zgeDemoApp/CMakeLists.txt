@@ -21,4 +21,4 @@ target_link_libraries(DemoApp ZGE2dLib ${SDL2_LIBRARY})
 
 #target_compile_definitions(DemoApp PUBLIC DEBUG_BUILD=1)
 
-message("ZGE2dLib 1: " ${ZGE2dLib})
+#message("ZGE2dLib 1: " ${ZGE2dLib})

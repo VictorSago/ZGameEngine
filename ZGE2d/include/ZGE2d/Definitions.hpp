@@ -47,8 +47,6 @@ namespace zge2d {
     const SDL_Color colorTurquoise			= {0, 255, 255, SDL_ALPHA_OPAQUE};
     const SDL_Color colorMagenta			= {255, 0, 255, SDL_ALPHA_OPAQUE};
 
-    constexpr static double PI_D = 3.1415926535897932d;
-
     inline bool operator==(const SDL_Rect& a, const SDL_Rect& b) {
         return a.x == b.x && a.y == b.y && a.w == b.w && a.h == b.h;
     }

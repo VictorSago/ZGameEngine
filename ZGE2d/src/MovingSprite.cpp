@@ -54,7 +54,7 @@ double MovingSprite::setFaceDir(double dirX, double dirY) {
     if (dirX == 0 && dirY == 0) {
         angle = 0;
     } else {
-        angle = atan2(dirY, dirX) * 180 / PI_D;
+        angle = atan2(dirY, dirX) * 180 / PI_D1;
     }
     if (dirX < 0) {
         flip = SDL_FLIP_VERTICAL;

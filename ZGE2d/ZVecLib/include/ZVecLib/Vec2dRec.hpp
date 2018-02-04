@@ -18,22 +18,22 @@ class Vec2dRec {
     public:
         Vec2dRec() : x(0.0d), y(0.0d) {}
         Vec2dRec(const double& x, const double& y) : x(x), y(y) {}
+        Vec2dRec(const double& x1, const double& y1, const double& x2, const double y2) : x(x2-x1), y(y2-y1) {}
 
         inline double getX() const { return x; }
         inline double getY() const { return y; }
+
+        inline void setX(double newX) { x = newX; }
+        inline void setY(double newY) { y = newY; }
+        inline void setXY(double newX, double newY) { x = newX; y = newY; }
 
         double getMag() const;
         double getAngleDeg() const;
         double getAngleRad() const;
 
-        inline void setX(double newX) { x = newX; }
-        inline void setY(double newY) { y = newY; }
-        inline void setXY(double newX, double newY) { x = newX; y = newY; }
         void setMag(double newMag);
         void setAngleDeg(double deg);
         void setAngleRad(double rad);
-        void setPolarDeg(double r, double adeg);
-        void setPolarRad(double r, double arad);
 
         // In-place transformations
         void normalize();                           // This vector into a unit vector
@@ -44,11 +44,44 @@ class Vec2dRec {
 
         double dot(const Vec2dRec& v2) const;       // Scalar product
 
+        // Operators
+        inline bool operator==(Vec2dRec rhs) { return x == rhs.x && y == rhs.y; }
+        inline bool operator!=(Vec2dRec rhs) { return x != rhs.x || y != rhs.y; }
+
+        Vec2dRec operator+(const Vec2dRec& rhs) const;
+        Vec2dRec operator-(const Vec2dRec& rhs) const;
+        double operator*(Vec2dRec rhs);
 };
 
 inline
 double Vec2dRec::getMag() const {
     return std::sqrt(x*x + y*y);
+}
+
+inline
+double Vec2dRec::getAngleDeg() const {
+    return RAD2DEG(atan2(y, x));
+}
+
+inline
+double Vec2dRec::getAngleRad() const {
+    return atan2(y, x);
+}
+
+inline
+void Vec2dRec::scale(const double& s) {
+    x *= s;
+    y *= s;
+}
+
+inline
+void Vec2dRec::reverse() {
+    scale(-1);
+}
+
+inline
+double Vec2dRec::dot(const Vec2dRec& v2) const {
+    return x*v2.x + y*v2.y;
 }
 
 }

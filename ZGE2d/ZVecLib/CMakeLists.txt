@@ -18,10 +18,11 @@ include_directories(${Boost_INCLUDE_DIR})
 #message("ZVecLib source (ZVECLIB_SRC_DIR): " ${ZVECLIB_SRC_DIR})
 #message("ZVecLib include (ZVECLIB_INC_DIR): " ${ZVECLIB_INC_DIR})
 
-add_library(ZVecLib SHARED "" include/ZVecLib/Common.hpp)
+add_library(ZVecLib SHARED "")
 
 target_sources(ZVecLib
         PRIVATE
+            ${ZVECLIB_INC_DIR}/Common.hpp
             ${ZVECLIB_SRC_DIR}/Vec2dRec.cpp
         PUBLIC
             ${ZVECLIB_INC_DIR}/Vec2dRec.hpp
@@ -30,6 +31,8 @@ target_sources(ZVecLib
 if(Boost_FOUND)
     add_executable(ZVecLibTest
             tests/Vec2dRec_test1.cpp
+            tests/Vec2dRec_test2.cpp
+            tests/Vec2dRec_test3.cpp
             )
     target_include_directories(ZVecLibTest PRIVATE ${Boost_INCLUDE_DIRS})
     target_compile_definitions(ZVecLibTest PRIVATE "BOOST_TEST_DYN_LINK=1")

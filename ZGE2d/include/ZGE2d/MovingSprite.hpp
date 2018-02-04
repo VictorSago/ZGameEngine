@@ -12,6 +12,8 @@
 
 namespace zge2d {
 
+constexpr static double PI_D1 = 3.1415926535897932d;
+
 class MovingSprite : public Sprite {
     protected:
         /** \brief Movement vector

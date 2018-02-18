@@ -30,9 +30,6 @@ message("Include dirs3: " ${libDir_inc_dirs})
 message("DemoApp: " ${demoApp_inc_dirs})
 message("ZGE2dLib: " ${zge2dLib_inc_dirs})
 
-
-#add_library(ZGE2d SHARED ZGE2d/src/library.cpp ZGE2d/include/ZGE2d/library.h)
-
 #add_executable(DemoApp zgeDemoApp/src/main.cpp)
 #target_include_directories(DemoApp ZGE2d/include/ZGE2d)
 #target_link_libraries(DemoApp ZGE2dLib)

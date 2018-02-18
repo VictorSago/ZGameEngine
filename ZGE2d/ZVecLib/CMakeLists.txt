@@ -37,7 +37,7 @@ if(Boost_FOUND)
     target_include_directories(ZVecLibTest PRIVATE ${Boost_INCLUDE_DIRS})
     target_compile_definitions(ZVecLibTest PRIVATE "BOOST_TEST_DYN_LINK=1")
     target_link_libraries(ZVecLibTest ZVecLib ${Boost_LIBRARIES})
-    add_test(NAME VecTests1 COMMAND ZVecLibTest)
+    add_test(NAME VecTests1 COMMAND ZVecLibTest --show_progress=yes)
 endif()
 
 message("Boost_INCLUDE_DIR: ${Boost_INCLUDE_DIR}")

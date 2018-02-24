@@ -30,6 +30,11 @@ void Vec2dRec::normalize() {
     y = y / len;
 }
 
+Vec2dRec Vec2dRec::getNormalized() const {
+    double len = getMag();
+    return Vec2dRec{x / len, y / len};
+}
+
 void Vec2dRec::rotateDeg(double deg) {
     rotateRad(zvectors::DEG2RAD(deg));
 }
@@ -39,6 +44,15 @@ void Vec2dRec::rotateRad(double rad) {
     double newY = x * std::sin(rad) + y * std::cos(rad);
     x = newX;
     y = newY;
+}
+
+
+Vec2dRec Vec2dRec::getRotatedDeg(double deg) const {
+    return getRotatedRad(zvectors::DEG2RAD(deg));
+}
+
+Vec2dRec Vec2dRec::getRotatedRad(double rad) const {
+    return Vec2dRec{x * std::cos(rad) - y * std::sin(rad), x * std::sin(rad) + y * std::cos(rad)};
 }
 
 Vec2dRec Vec2dRec::operator+(const Vec2dRec& rhs) const {

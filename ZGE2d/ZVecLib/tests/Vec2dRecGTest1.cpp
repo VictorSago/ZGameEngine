@@ -53,4 +53,19 @@ TEST(ConstructorTests, ValuedConstructorTest2) {
     ASSERT_DOUBLE_EQ(-p_4, v4.getAngleRad());
 }
 
+TEST(ConstructorTests, CopyConstructor) {
+    std::cout << "GTest: Testing copy constructor." << std::endl;
+    zvectors::Vec2dRec v1{3, 4};
+    zvectors::Vec2dRec v2(v1);
+    ASSERT_TRUE(v2 == v1);
+    ASSERT_EQ(5, v2.getMag());
+}
+
+TEST(ConstructorTests, AssignmentOperator) {
+    std::cout << "GTest: Testing copy constructor." << std::endl;
+    zvectors::Vec2dRec v1{3, 4};
+    zvectors::Vec2dRec v2 = v1;
+    ASSERT_TRUE(v2 == v1);
+}
+
 }

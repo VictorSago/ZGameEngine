@@ -41,14 +41,19 @@ if(Boost_FOUND)
     add_test(NAME VecTests1 COMMAND ZVecLibTest --show_progress=yes)
 endif()
 
+set(my_gtest_sources
+        tests/Vec2dRecGTest1.cpp
+        tests/NewVectorGTest.cpp
+        tests/NewVectorGTest.hpp)
+
 # Now simply link against gtest or gtest_main as needed. Eg
-add_executable(ZVecLibGTestMain tests/Vec2dRecTests1.cpp)
-target_link_libraries(ZVecLibGTestMain gtest_main)
+add_executable(ZVecLibGTestMain ${my_gtest_sources})
+target_link_libraries(ZVecLibGTestMain ZVecLib gtest_main)
 add_test(NAME VecGTestMain COMMAND ZVecLibGTestMain)
 
 # Now simply link against gtest or gtest_main as needed. Eg
-add_executable(ZVecLibGTest tests/Vec2dRecTests1.cpp tests/main.cpp)
-target_link_libraries(ZVecLibGTest gtest)
+add_executable(ZVecLibGTest ${my_gtest_sources} tests/main.cpp)
+target_link_libraries(ZVecLibGTest ZVecLib gtest)
 add_test(NAME VecGTest COMMAND ZVecLibGTest)
 
 message("gtest_SOURCE_DIR: " ${gtest_SOURCE_DIR})

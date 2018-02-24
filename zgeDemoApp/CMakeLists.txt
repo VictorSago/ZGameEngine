@@ -16,7 +16,7 @@ include_directories(../ZGE2d/include)
 #message("  SDL2 libs: ${SDL2_LIBRARY}")
 
 add_executable(DemoApp src/main.cpp)
-
+#target_include_directories(DemoApp ZGE2d/include/ZGE2d)
 target_link_libraries(DemoApp ZGE2dLib ${SDL2_LIBRARY})
 
 #target_compile_definitions(DemoApp PUBLIC DEBUG_BUILD=1)

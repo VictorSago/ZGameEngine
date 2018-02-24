@@ -87,3 +87,4 @@ endif()
 
 #message("CMake Module Path 1: " ${CMAKE_MODULE_PATH})
 #message("ZGE2dLib 2: " ${ZGE2dLib})
+message("CMAKE_BINARY_DIR in ZGE2d ${CMAKE_BINARY_DIR}")

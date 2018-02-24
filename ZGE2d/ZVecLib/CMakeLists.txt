@@ -13,6 +13,7 @@ set(ZVECLIB_INC_DIR ${CMAKE_CURRENT_LIST_DIR}/include/${PROJECT_NAME})
 include_directories(${ZVECLIB_INC_DIR})
 
 include_directories(${Boost_INCLUDE_DIR})
+#include_directories("${gtest_SOURCE_DIR}/include")
 
 #message("ZVecLib CMake Current List Dir: " ${CMAKE_CURRENT_LIST_DIR})
 #message("ZVecLib source (ZVECLIB_SRC_DIR): " ${ZVECLIB_SRC_DIR})
@@ -40,6 +41,17 @@ if(Boost_FOUND)
     add_test(NAME VecTests1 COMMAND ZVecLibTest --show_progress=yes)
 endif()
 
-message("Boost_INCLUDE_DIR: ${Boost_INCLUDE_DIR}")
-message("Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
-message("Boost_LIBRARIES: ${Boost_LIBRARIES}")
+# Now simply link against gtest or gtest_main as needed. Eg
+add_executable(ZVecLibGTestMain tests/Vec2dRecTests1.cpp)
+target_link_libraries(ZVecLibGTestMain gtest_main)
+add_test(NAME VecGTestMain COMMAND ZVecLibGTestMain)
+
+# Now simply link against gtest or gtest_main as needed. Eg
+add_executable(ZVecLibGTest tests/Vec2dRecTests1.cpp tests/main.cpp)
+target_link_libraries(ZVecLibGTest gtest)
+add_test(NAME VecGTest COMMAND ZVecLibGTest)
+
+message("gtest_SOURCE_DIR: " ${gtest_SOURCE_DIR})
+message("ZVecLib_INCLUDE: " ${ZVecLib_INCLUDE})
+message("CMAKE_BINARY_DIR in ZVecLib ${CMAKE_BINARY_DIR}")
+#message("GTest Found: " ${gtest_FOUND})

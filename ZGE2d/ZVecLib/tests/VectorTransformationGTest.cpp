@@ -5,11 +5,11 @@
 #include <iostream>
 #include "Vec2dRec.hpp"
 #include "gtest/gtest.h"
-#include "NewVectorGTest.hpp"
+#include "VectorTransformationGTest.hpp"
 
 namespace {
 
-TEST_F(NewVectorGTest, getNormalTest) {
+TEST_F(VectorTransformationGTest, getNormalTest) {
     std::cout << "GTest: Testing transformative constructions: normalize." << std::endl;
     std::cout << "v1 coords: (" << v1.getX() << ", " << v1.getY() << ")" << std::endl;
     std::cout << "v2 coords: (" << v2.getX() << ", " << v2.getY() << ")" << std::endl;
@@ -24,7 +24,7 @@ TEST_F(NewVectorGTest, getNormalTest) {
     ASSERT_EQ(5, v2.getMag());
 }
 
-TEST_F(NewVectorGTest, getScaledTest) {
+TEST_F(VectorTransformationGTest, getScaledTest) {
     std::cout << "GTest: Testing transformative constructions: scale." << std::endl;
     zvectors::Vec2dRec sV1 = v1.getScaled(-3.2);
     zvectors::Vec2dRec sV2 = v2.getScaled(1.5);
@@ -40,7 +40,7 @@ TEST_F(NewVectorGTest, getScaledTest) {
     ASSERT_EQ(4, v2.getY());
 }
 
-TEST_F(NewVectorGTest, getReversedTest) {
+TEST_F(VectorTransformationGTest, getReversedTest) {
     std::cout << "GTest: Testing transformative constructions: reverse." << std::endl;
     zvectors::Vec2dRec rV1 = v1.getReversed();
     zvectors::Vec2dRec rV2 = v2.getReversed();
@@ -52,7 +52,7 @@ TEST_F(NewVectorGTest, getReversedTest) {
     ASSERT_TRUE(v2.getMag() == rV2.getMag());
 }
 
-TEST_F(NewVectorGTest, getRotatedRadTest) {
+TEST_F(VectorTransformationGTest, getRotatedRadTest) {
     std::cout << "GTest: Testing transformative constructions: rotation rad." << std::endl;
     zvectors::Vec2dRec rV11 = v1.getRotatedRad(zvectors::PI_D/2);
     zvectors::Vec2dRec rV21 = v2.getRotatedRad(zvectors::PI_D/2);
@@ -64,7 +64,7 @@ TEST_F(NewVectorGTest, getRotatedRadTest) {
     ASSERT_DOUBLE_EQ(3, rV21.getY());
 }
 
-TEST_F(NewVectorGTest, getRotatedDegTest) {
+TEST_F(VectorTransformationGTest, getRotatedDegTest) {
     std::cout << "GTest: Testing transformative constructions: rotation deg." << std::endl;
     zvectors::Vec2dRec rV11 = v1.getRotatedDeg(45);
     zvectors::Vec2dRec rV21 = v2.getRotatedDeg(45).getRotatedDeg(45);
@@ -76,7 +76,7 @@ TEST_F(NewVectorGTest, getRotatedDegTest) {
     ASSERT_DOUBLE_EQ(3, rV21.getY());
 }
 
-TEST_F(NewVectorGTest, getRotatedNegDegTest) {
+TEST_F(VectorTransformationGTest, getRotatedNegDegTest) {
     std::cout << "GTest: Testing transformative constructions: rotation deg." << std::endl;
     zvectors::Vec2dRec rV11 = v1.getRotatedDeg(-45);
     zvectors::Vec2dRec rV21 = v2.getRotatedDeg(-45).getRotatedDeg(-45);
@@ -86,18 +86,6 @@ TEST_F(NewVectorGTest, getRotatedNegDegTest) {
     ASSERT_NEAR(0, rV11.getY(), 0.000000000000001);
     ASSERT_DOUBLE_EQ(4, rV21.getX());
     ASSERT_DOUBLE_EQ(-3, rV21.getY());
-}
-
-TEST_F(NewVectorGTest, unaryMinus) {
-    std::cout << "GTest: Testing transformative constructions: unary minus operator." << std::endl;
-    zvectors::Vec2dRec newV1 = -v1;
-    zvectors::Vec2dRec newV2 = -v2;
-    ASSERT_EQ(-1, newV1.getX());
-    ASSERT_EQ(-1, newV1.getY());
-    ASSERT_EQ(-3, newV2.getX());
-    ASSERT_EQ(-4, newV2.getY());
-    ASSERT_TRUE(v1.getMag() == newV1.getMag());
-    ASSERT_TRUE(v2.getMag() == newV2.getMag());
 }
 
 }

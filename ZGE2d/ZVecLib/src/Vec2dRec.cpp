@@ -6,6 +6,12 @@
 
 namespace zvectors {
 
+
+double Vec2dRec::angleDiff(Vec2dRec v1, Vec2dRec v2) {
+    return std::acos(v1 * v2 / (v1.getMag() * v2.getMag()));
+}
+
+
 void Vec2dRec::setMag(double newMag) {
     double val = newMag < 0 ? -newMag : newMag;
     scale(val/getMag());

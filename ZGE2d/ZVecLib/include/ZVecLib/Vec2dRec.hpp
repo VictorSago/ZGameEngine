@@ -6,7 +6,6 @@
 #define ZVECLIB_VEC2DREC_HPP
 
 #include <cmath>
-
 #include "Common.hpp"
 
 namespace zvectors {
@@ -19,9 +18,11 @@ class Vec2dRec {
         Vec2dRec() : x(0.0d), y(0.0d) {}
         Vec2dRec(const double& x, const double& y) : x(x), y(y) {}
         Vec2dRec(const double& x1, const double& y1, const double& x2, const double y2) : x(x2-x1), y(y2-y1) {}
-
 //        Vec2dRec(const Vec2dRec& vec);
 
+        static double angleDiff(Vec2dRec v1, Vec2dRec v2);
+
+        // Getters and Setters
         inline double getX() const { return x; }
         inline double getY() const { return y; }
 
@@ -44,6 +45,7 @@ class Vec2dRec {
         void rotateRad(double rad);                 // Rotate this vector by rad radians
         void reverse();                             // Reverse this vector
 
+        // New vectors
         Vec2dRec getNormalized() const;             // Get a new unit vector with the same direction as this vector
         Vec2dRec getScaled(const double& s) const;  // Get a new scaled vector from this vector
         Vec2dRec getRotatedDeg(double deg) const;   // Get a new vector from this one rotated deg degrees
@@ -52,14 +54,16 @@ class Vec2dRec {
 
         double dot(const Vec2dRec& v2) const;       // Scalar product
 
-        // Operators
+        // Comparison operators
         inline bool operator==(const Vec2dRec& rhs) const { return x == rhs.x && y == rhs.y; }
         inline bool operator!=(const Vec2dRec& rhs) const { return x != rhs.x || y != rhs.y; }
 
+        // Operators
         Vec2dRec operator-() const;
         Vec2dRec operator+(const Vec2dRec& rhs) const;
         Vec2dRec operator-(const Vec2dRec& rhs) const;
         double operator*(Vec2dRec rhs);
+        Vec2dRec operator*(const double rhs) const { return this->getScaled(rhs); }
 };
 
 inline

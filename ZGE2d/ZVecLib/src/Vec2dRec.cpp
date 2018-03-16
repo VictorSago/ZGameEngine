@@ -7,10 +7,17 @@
 namespace zvectors {
 
 
-double Vec2dRec::angleDiff(Vec2dRec v1, Vec2dRec v2) {
-    return std::acos(v1 * v2 / (v1.getMag() * v2.getMag()));
+double Vec2dRec::angleDiffRad(Vec2dRec v1, Vec2dRec v2) {
+    double len1 = v1.getMag();
+    double len2 = v2.getMag();
+    return (len1 != 0 && len2 != 0) ? std::acos(v1 * v2 / (len1 * len2)) : 0;
 }
 
+double Vec2dRec::angleDiffDeg(Vec2dRec v1, Vec2dRec v2) {
+    double len1 = v1.getMag();
+    double len2 = v2.getMag();
+    return (len1 != 0 && len2 != 0) ? std::acos(v1 * v2 / (len1 * len2)) * zvectors::RAD2DEG_FACTOR : 0;
+}
 
 void Vec2dRec::setMag(double newMag) {
     double val = newMag < 0 ? -newMag : newMag;

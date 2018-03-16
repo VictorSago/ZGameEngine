@@ -25,7 +25,7 @@ class VectorOperationsGTest : public ::testing::Test {
         zvectors::Vec2dRec vec32{-5, 8};
         zvectors::Vec2dRec vec30deg{std::sqrt(3), 1.0d};
         zvectors::Vec2dRec vec60deg{1.0d, std::sqrt(3)};
-        zvectors::Vec2dRec vec30mdeg{std::sqrt(3), -1.0d};
+        zvectors::Vec2dRec vec30Ndeg{std::sqrt(3), -1.0d};
         zvectors::Vec2dRec vec240deg{-1.0d, std::sqrt(3)};
 };
 

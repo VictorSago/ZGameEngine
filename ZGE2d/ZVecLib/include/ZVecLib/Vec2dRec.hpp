@@ -20,7 +20,8 @@ class Vec2dRec {
         Vec2dRec(const double& x1, const double& y1, const double& x2, const double y2) : x(x2-x1), y(y2-y1) {}
 //        Vec2dRec(const Vec2dRec& vec);
 
-        static double angleDiff(Vec2dRec v1, Vec2dRec v2);
+        static double angleDiffRad(Vec2dRec v1, Vec2dRec v2);
+        static double angleDiffDeg(Vec2dRec v1, Vec2dRec v2);
 
         // Getters and Setters
         inline double getX() const { return x; }

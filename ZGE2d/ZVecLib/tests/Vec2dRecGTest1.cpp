@@ -9,14 +9,14 @@
 namespace {
 
 TEST(ConstructorTests, DefaultConstructorTest) {
-    std::cout << "GTest: Testing default constructor." << std::endl;
+    std::cout << "GTest: Testing default constructor.\n";
     zvectors::Vec2dRec v0{};
     ASSERT_TRUE(v0.getX() == 0 && v0.getY() == 0);
     ASSERT_EQ(0, v0.getMag());
 }
 
 TEST(ConstructorTests, ValuedConstructorTest1) {
-    std::cout << "GTest: Testing constructor: vectors along the XY-axes." << std::endl;
+    std::cout << "GTest: Testing constructor: vectors along the XY-axes.\n";
     zvectors::Vec2dRec v1{1, 0};
     zvectors::Vec2dRec v2{0, 3};
     zvectors::Vec2dRec v3{-4, 0};
@@ -28,7 +28,7 @@ TEST(ConstructorTests, ValuedConstructorTest1) {
 }
 
 TEST(ConstructorTests, ValuedConstructorTest2) {
-    std::cout << "GTest: Testing constructor: vectors in 1st, 2nd, 3rd and 4th quadrants." << std::endl;
+    std::cout << "GTest: Testing constructor: vectors in 1st, 2nd, 3rd and 4th quadrants.\n";
     zvectors::Vec2dRec v1{1, 1};
     zvectors::Vec2dRec v2{-1, 1};
     zvectors::Vec2dRec v3{-1, -1};
@@ -54,7 +54,7 @@ TEST(ConstructorTests, ValuedConstructorTest2) {
 }
 
 TEST(ConstructorTests, CopyConstructor) {
-    std::cout << "GTest: Testing copy constructor." << std::endl;
+    std::cout << "GTest: Testing copy constructor.\n";
     zvectors::Vec2dRec v1{3, 4};
     zvectors::Vec2dRec v2(v1);
     ASSERT_TRUE(v2 == v1);
@@ -62,7 +62,7 @@ TEST(ConstructorTests, CopyConstructor) {
 }
 
 TEST(ConstructorTests, AssignmentOperator) {
-    std::cout << "GTest: Testing copy constructor." << std::endl;
+    std::cout << "GTest: Testing copy constructor.\n";
     zvectors::Vec2dRec v1{3, 4};
     zvectors::Vec2dRec v2 = v1;
     ASSERT_TRUE(v2 == v1);

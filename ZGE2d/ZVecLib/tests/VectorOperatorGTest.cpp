@@ -16,7 +16,7 @@ TEST_F(VectorOperatorGTest, eqalityOperators) {
 }
 
 TEST_F(VectorOperatorGTest, unaryMinus) {
-    std::cout << "GTest: Testing transformative constructions: unary minus operator." << std::endl;
+    std::cout << "GTest: Testing transformative constructions: unary minus operator.\n";
     zvectors::Vec2dRec newV0 = -vec0;
     zvectors::Vec2dRec newV1 = -vec1;
     zvectors::Vec2dRec newV3 = -vec3;
@@ -31,7 +31,7 @@ TEST_F(VectorOperatorGTest, unaryMinus) {
 }
 
 TEST_F(VectorOperatorGTest, multiplyByScalar) {
-    std::cout << "GTest: Testing multiplication by scalar." << std::endl;
+    std::cout << "GTest: Testing multiplication by scalar.\n";
     double multiplier1 = 3.0;
     zvectors::Vec2dRec vec0s = vec0*multiplier1;
     zvectors::Vec2dRec vec1s = vec1*multiplier1;

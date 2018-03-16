@@ -44,7 +44,7 @@ endif()
 set(my_gtest_sources
         tests/Vec2dRecGTest1.cpp
         tests/VectorTransformationGTest.cpp
-        tests/VectorTransformationGTest.hpp tests/VectorOperatorGTest.hpp tests/VectorOperatorGTest.cpp tests/VectorOperationsGTest.cpp tests/VectorOperationsGTest.hpp)
+        tests/VectorTransformationGTest.hpp tests/VectorOperatorGTest.hpp tests/VectorOperatorGTest.cpp tests/VectorStaticOperationsGTest.cpp tests/VectorStaticOperationsGTest.hpp)
 
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(ZVecLibGTestMain ${my_gtest_sources})

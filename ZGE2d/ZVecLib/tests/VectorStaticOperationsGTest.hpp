@@ -10,7 +10,7 @@
 
 namespace {
 
-class VectorOperationsGTest : public ::testing::Test {
+class VectorStaticOperationsGTest : public ::testing::Test {
     protected:
         zvectors::Vec2dRec vec0{};
         zvectors::Vec2dRec vec1p{1, 0};
@@ -26,7 +26,7 @@ class VectorOperationsGTest : public ::testing::Test {
         zvectors::Vec2dRec vec30deg{std::sqrt(3), 1.0d};
         zvectors::Vec2dRec vec60deg{1.0d, std::sqrt(3)};
         zvectors::Vec2dRec vec30Ndeg{std::sqrt(3), -1.0d};
-        zvectors::Vec2dRec vec240deg{-1.0d, std::sqrt(3)};
+        zvectors::Vec2dRec vec240deg{-1.0d, -std::sqrt(3)};
 };
 
 }

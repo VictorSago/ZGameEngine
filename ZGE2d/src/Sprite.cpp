@@ -70,7 +70,7 @@ void Sprite::update() {
 
 void Sprite::draw(SDL_Renderer* renderTarget) const {
     if (visible) {
-        texture.get()->draw(renderTarget, &cropRect, &boundingRect);
+        texture.get()->draw(renderTarget, &cropRect, &boundingRect, 0);
     }
 }
 

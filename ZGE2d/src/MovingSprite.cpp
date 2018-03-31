@@ -10,20 +10,27 @@
 #include "GameEngine.hpp"
 #include "Definitions.hpp"
 #include "MovingSprite.hpp"
+#include "ZVecLib/Vec2dRec.hpp"
 
 namespace zge2d {
 
 MovingSprite::MovingSprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, const std::string& imagePath, bool visibility)
                 : Sprite(renderTarget, x, y, w, h, imagePath, visibility) {
     std::cout << "MovingSprite constructor 7." << std::endl;
-    moveSpeed = DEFAULT_MOVESPEED;
-    moveDirX = moveDirY = 0.0f;
+//    moveSpeed = DEFAULT_MOVESPEED;
+//    moveDirX = moveDirY = 0.0f;
+    posX = boundingRect.x;
+    posY = boundingRect.y;
+    movement = {0, 0};
 }
 
 MovingSprite::~MovingSprite() {
     std::cout << "MovingSprite destructor" << std::endl;
 }
 
+void MovingSprite::setMoveDir(double dirX, double dirY) { movement.setXY(dirX, dirY); }
+
+/*
 void MovingSprite::setMoveDir(double dirX, double dirY) {
 	double m = sqrt(dirX * dirX + dirY * dirY);
 	if (m != 0) {
@@ -35,6 +42,7 @@ void MovingSprite::setMoveDir(double dirX, double dirY) {
 //	std::cout << "MovingSprite setMoveDir(" << dirX << ", " << dirY << ")" << std::endl;
 //	std::cout << "MovingSprite moveDirX: " << moveDirX << " , moveDirY: " << moveDirY << std::endl;
 }
+*/
 
 double MovingSprite::setFaceDir(double angle) {
     if (angle < 0 || angle >= 360) {
@@ -54,7 +62,7 @@ double MovingSprite::setFaceDir(double dirX, double dirY) {
     if (dirX == 0 && dirY == 0) {
         angle = 0;
     } else {
-        angle = atan2(dirY, dirX) * 180 / PI_D1;
+        angle = atan2(dirY, dirX) * zvectors::RAD2DEG_FACTOR;
     }
     if (dirX < 0) {
         flip = SDL_FLIP_VERTICAL;
@@ -72,9 +80,20 @@ void MovingSprite::setFlip(SDL_RendererFlip f) {
 }
 
 void MovingSprite::move() {
+//    boundingRect.x += movement.getX();
+//    boundingRect.y += movement.getY();
+    posX += movement.getX();
+    posY += movement.getY();
+    boundingRect.x = static_cast<int>(round(posX));
+    boundingRect.y = static_cast<int>(round(posY));
+}
+
+/*
+void MovingSprite::move() {
     boundingRect.x += moveSpeed * moveDirX;
     boundingRect.y += moveSpeed * moveDirY;
 }
+*/
 
 void MovingSprite::update() {
 //    if(collisionHandler) {
@@ -93,7 +112,7 @@ void MovingSprite::update() {
 
 void MovingSprite::draw(SDL_Renderer* renderTarget) const {
     if (visible) {
-        texture.get()->draw(renderTarget, &cropRect, &boundingRect);
+        texture.get()->draw(renderTarget, &cropRect, &boundingRect, faceDir);
     }
 }
 

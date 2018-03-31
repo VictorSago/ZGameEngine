@@ -7,12 +7,14 @@
 
 #include <iostream>
 #include <string>
+#include <ZVecLib/Vec2dRec.hpp>
 
+#include "ZVecLib/Common.hpp"
 #include "Sprite.hpp"
 
 namespace zge2d {
 
-constexpr static double PI_D1 = 3.1415926535897932d;
+//constexpr static double PI_D1 = 3.1415926535897932d;
 
 class MovingSprite : public Sprite {
     protected:
@@ -21,21 +23,29 @@ class MovingSprite : public Sprite {
          * is defined by three values: two to determine direction and
          * one for speed value.
          */
-        float moveSpeed;
-        double moveDirX = 0.0f;
-        double moveDirY = 0.0f;
+//        float moveSpeed;
+//        double moveDirX = 0.0f;
+//        double moveDirY = 0.0f;
+
+        double posX;
+        double posY;
+        zvectors::Vec2dRec movement;
 
         double faceDir;
         SDL_RendererFlip flip = SDL_FLIP_NONE;
 
     public:
-        MovingSprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, const std::string& imagePath, bool visibility);
+        MovingSprite(SDL_Renderer* renderTarget, int x, int y, int w, int h, const std::string& imagePath, bool visibility = true );
         virtual ~MovingSprite();
 
-        float getMoveSpeed() { return moveSpeed; }
-        virtual void setMoveSpeed(float speed) { moveSpeed = speed; }
-        double getMoveDirX() { return moveDirX; }
-        double getMoveDirY() { return moveDirY; }
+//        float getMoveSpeed() { return moveSpeed; }
+        double getMoveSpeed() { return movement.getMag(); }
+//        virtual void setMoveSpeed(float speed) { moveSpeed = speed; }
+        virtual void setMoveSpeed(double speed) { movement.setMag(speed); }
+//        double getMoveDirX() { return moveDirX; }
+//        double getMoveDirY() { return moveDirY; }
+        double getMoveDirX() { return movement.getX(); }
+        double getMoveDirY() { return movement.getY(); }
         virtual void setMoveDir(double dirX, double dirY);
 
         virtual double getFaceDir() { return faceDir; }

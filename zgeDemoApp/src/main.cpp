@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
     window->addWidget(lbl1);
     window->addWidget(lbl2);
     SpriteGroup* sg1 = new SpriteGroup("Sprites");
-    Sprite* sprite1 = new Sprite(window->getRenderer(), 300, 300, 32, 32, PACMAN1_PATH);
+    MovingSprite* sprite1 = new MovingSprite(window->getRenderer(), 300, 300, 32, 32, PACMAN1_PATH);
     Frames frames1r = {
             { 0, 0, 32, 32},
             { 32, 0, 32, 32}
@@ -123,7 +123,10 @@ int main(int argc, char** argv) {
     sprite1->addAnimation(new Animation("right", frames1r));
     sprite1->addAnimation(new Animation("rotation", rot, 4));
     sprite1->registerEventHandler(SDL_MOUSEMOTION, std::bind(&SpriteMouseEvent, sprite1, std::placeholders::_1));
-    sprite1->setCurrentAnimation("rotation");
+    sprite1->setCurrentAnimation("right");
+    sprite1->setMoveDir(1.0, 1.0);
+    sprite1->setFaceDir(sprite1->getMoveDirX(), sprite1->getMoveDirY());
+    cout << "sprite1: " << sprite1->getMoveDirX() << ", " << sprite1->getMoveDirY() << endl;
     MovingSprite* sprite2 = new MovingSprite(window->getRenderer(), 100, 350, 32, 32, PACMAN2_PATH, true);
     Frames frames3r = {
             { 0, 0, 32, 32},

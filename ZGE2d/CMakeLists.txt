@@ -77,7 +77,9 @@ target_sources(ZGE2dLib
             ${ZGE2D_INC_DIR}/WidgetContainer.hpp
         )
 
-target_link_libraries(ZGE2dLib ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARY})
+target_include_directories(ZGE2dLib PUBLIC ${CMAKE_CURRENT_LIST_DIR}/ZVecLib/include)
+
+target_link_libraries(ZGE2dLib ZVecLib ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${SDL2_TTF_LIBRARY})
 
 #target_compile_definitions(ZGE2dLib PUBLIC DEBUG_BUILD=1)
 

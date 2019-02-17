@@ -14,7 +14,6 @@
 
 namespace zge2d {
 
-
 Texture::Texture(SDL_Texture* sdlTexture) : texture(sdlTexture) {
 }
 
@@ -27,11 +26,11 @@ Texture::~Texture() {
 }
 
 Texture* Texture::loadTexture(SDL_Renderer* renderTarget, std::string filePath) {
-    SDL_Texture* texture = nullptr;
+//    SDL_Texture* texture = nullptr;
     Texture* ret = nullptr;
     SDL_Surface* surface = IMG_Load(filePath.c_str());
     if(surface != nullptr) {
-        texture = SDL_CreateTextureFromSurface(renderTarget, surface);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderTarget, surface);
         if (texture == nullptr) {
             std::cerr << "Error converting surface to texture: " << SDL_GetError() << std::endl;
         }
@@ -45,12 +44,12 @@ Texture* Texture::loadTexture(SDL_Renderer* renderTarget, std::string filePath) 
 }
 
 Texture* Texture::loadTextureWithTransparency(SDL_Renderer* renderTarget, std::string filePath, SDL_Color transp) {
-    SDL_Texture* texture = nullptr;
+//    SDL_Texture* texture = nullptr;
     Texture* ret = nullptr;
     SDL_Surface* surface = IMG_Load(filePath.c_str());
     if(surface != nullptr) {
         SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, transp.r, transp.g, transp.b));
-        texture = SDL_CreateTextureFromSurface(renderTarget, surface);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderTarget, surface);
         if (texture == nullptr) {
             std::cerr << "Error converting surface to texture: " << SDL_GetError() << std::endl;
         }
@@ -64,7 +63,7 @@ Texture* Texture::loadTextureWithTransparency(SDL_Renderer* renderTarget, std::s
 }
 
 Texture *Texture::makeFromText(SDL_Renderer* renderTarget, std::string fontPath, std::string text, SDL_Color fgColor, int txtSize) {
-    SDL_Texture* texture = nullptr;
+//    SDL_Texture* texture = nullptr;
     Texture* ret = nullptr;
     TTF_Font* font = TTF_OpenFont(fontPath.c_str(), txtSize);
     if (font == nullptr) {
@@ -73,7 +72,7 @@ Texture *Texture::makeFromText(SDL_Renderer* renderTarget, std::string fontPath,
     }
     SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), fgColor);
     if (surface != nullptr) {
-        texture = SDL_CreateTextureFromSurface(renderTarget, surface);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderTarget, surface);
         if (texture == nullptr) {
             std::cerr << "Error converting text surface to texture: " << SDL_GetError() << std::endl;
         }

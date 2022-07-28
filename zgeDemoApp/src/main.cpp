@@ -19,7 +19,7 @@ using namespace std;
 
 using namespace zge2d;
 
-bool SessionQuitEvent(Session* s, SDL_Event& e) {
+bool SessionQuitEvent(Session* s, const SDL_Event& e) {
 //    auto s = reinterpret_cast<Session*>(obj);
     if (e.type == SDL_QUIT) {
         cout << "Session caught an SDL_QUIT event\n";
@@ -28,7 +28,7 @@ bool SessionQuitEvent(Session* s, SDL_Event& e) {
     return true;
 }
 
-bool SessionKeyEvent(Session* s, SDL_Event& e) {
+bool SessionKeyEvent(Session* s, const SDL_Event& e) {
 //    auto s = reinterpret_cast<Session*>(obj);
     bool handled = false;
     if (e.type == SDL_KEYDOWN) {
@@ -53,7 +53,7 @@ bool SessionKeyEvent(Session* s, SDL_Event& e) {
     return handled;
 }
 
-bool LabelMouseEvent(Label* lbl, SDL_Event& e){
+bool LabelMouseEvent(Label* lbl, const SDL_Event& e){
 //    auto lbl = reinterpret_cast<Label*>(obj);
     bool handled = false;
     int mouseX, mouseY;
@@ -71,7 +71,7 @@ bool LabelMouseEvent(Label* lbl, SDL_Event& e){
     return handled;
 }
 
-bool SpriteMouseEvent(Sprite* spr, SDL_Event& e){
+bool SpriteMouseEvent(Sprite* spr, const SDL_Event& e){
 //    auto spr = reinterpret_cast<Sprite*>(obj);
     bool handled = false;
     int mouseX, mouseY;

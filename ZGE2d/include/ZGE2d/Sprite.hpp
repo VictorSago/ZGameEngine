@@ -21,7 +21,7 @@ class Sprite : public Entity {
         std::shared_ptr<Texture> texture;
         SDL_Rect cropRect;
 
-        std::string currentAnimation = "";
+        std::string currentAnimation;
         std::map<std::string, Animation* > animations;
 
         bool collisionHandler;
@@ -36,9 +36,9 @@ class Sprite : public Entity {
         void setCropRect(const SDL_Rect& newCropRect) { cropRect = newCropRect; }
 
         bool addAnimation(Animation* animation);
-        bool setCurrentAnimation(std::string aname);
+        bool setCurrentAnimation(const std::string& aname);
 
-        bool isCollisionHandler() { return collisionHandler; }
+        bool isCollisionHandler() const { return collisionHandler; }
 
         void update() override;
         void draw(SDL_Renderer* renderTarget) const override;

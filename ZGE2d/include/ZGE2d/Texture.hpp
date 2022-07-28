@@ -14,14 +14,14 @@ namespace zge2d {
 
 class Texture {
     public:
-        static Texture* loadTexture(SDL_Renderer* renderTarget, std::string filePath);
-        static Texture* loadTextureWithTransparency(SDL_Renderer* renderTarget, std::string filePath, SDL_Color transp);
-        static Texture* makeFromText(SDL_Renderer* renderTarget, std::string fontPath,
-                                     std::string text, SDL_Color fgColor, int txtSize = 16);
+        static Texture* loadTexture(SDL_Renderer* renderTarget, const std::string& filePath);
+        static Texture* loadTextureWithTransparency(SDL_Renderer* renderTarget, const std::string& filePath, SDL_Color transp);
+        static Texture* makeFromText(SDL_Renderer* renderTarget, const std::string& fontPath,
+                                     const std::string& text, SDL_Color fgColor, int txtSize = 16);
     protected:
         int width = 0;
         int height = 0;
-        SDL_Texture* texture;
+        SDL_Texture* texture{};
 
     public:
         virtual ~Texture();

@@ -25,7 +25,7 @@ Texture::~Texture() {
     }
 }
 
-Texture* Texture::loadTexture(SDL_Renderer* renderTarget, std::string filePath) {
+Texture* Texture::loadTexture(SDL_Renderer* renderTarget, const std::string& filePath) {
 //    SDL_Texture* texture = nullptr;
     Texture* ret = nullptr;
     SDL_Surface* surface = IMG_Load(filePath.c_str());
@@ -43,7 +43,7 @@ Texture* Texture::loadTexture(SDL_Renderer* renderTarget, std::string filePath) 
     return ret;
 }
 
-Texture* Texture::loadTextureWithTransparency(SDL_Renderer* renderTarget, std::string filePath, SDL_Color transp) {
+Texture* Texture::loadTextureWithTransparency(SDL_Renderer* renderTarget, const std::string& filePath, SDL_Color transp) {
 //    SDL_Texture* texture = nullptr;
     Texture* ret = nullptr;
     SDL_Surface* surface = IMG_Load(filePath.c_str());
@@ -62,7 +62,7 @@ Texture* Texture::loadTextureWithTransparency(SDL_Renderer* renderTarget, std::s
     return ret;
 }
 
-Texture *Texture::makeFromText(SDL_Renderer* renderTarget, std::string fontPath, std::string text, SDL_Color fgColor, int txtSize) {
+Texture *Texture::makeFromText(SDL_Renderer* renderTarget, const std::string& fontPath, const std::string& text, SDL_Color fgColor, int txtSize) {
 //    SDL_Texture* texture = nullptr;
     Texture* ret = nullptr;
     TTF_Font* font = TTF_OpenFont(fontPath.c_str(), txtSize);

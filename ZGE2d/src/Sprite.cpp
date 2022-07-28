@@ -38,7 +38,7 @@ Sprite::Sprite(SDL_Renderer* renderTarget, const SDL_Rect& r, const std::string&
 Sprite::~Sprite() {
     std::cout << "Sprite destructor called" << std::endl;
     collisions.clear();
-    for (auto an : animations) {
+    for (const auto& an : animations) {
         delete an.second;
     }
     std::cout << "Sprite: deleted animations" << std::endl;
@@ -52,7 +52,7 @@ bool Sprite::addAnimation(Animation* animation) {
     return res;
 }
 
-bool Sprite::setCurrentAnimation(std::string aname) {
+bool Sprite::setCurrentAnimation(const std::string& aname) {
     if (animations.count(aname) != 0) {
         currentAnimation = aname;
         return true;
